@@ -1,0 +1,36 @@
+{
+  "name": "boostwiki",
+  "version": "0.1.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "front:dev": "node server.js",
+    "back:tsc": "tsc -p backend -w",
+    "back:dev": "node backend/build/scripts/runServer",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Junyoung Choi <fluke8259@gmail.com> (https://github.com/rokt33r)",
+  "license": "MIT",
+  "dependencies": {
+    "dotenv": "^5.0.1",
+    "express": "^4.16.3",
+    "http-proxy-middleware": "^0.18.0",
+    "morgan": "^1.9.0",
+    "next": "^5.0.0",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0"
+  },
+  "devDependencies": {
+    "@types/express": "^4.11.1",
+    "@types/next": "^2.4.8",
+    "@types/react": "^16.0.40",
+    "@types/react-dom": "^16.0.4",
+    "@zeit/next-typescript": "0.0.10",
+    "nodemon": "^1.17.3",
+    "ts-node": "^5.0.1",
+    "tslint": "^5.9.1",
+    "tslint-config-standard": "^7.0.0",
+    "typescript": "^2.7.2"
+  }
+}
