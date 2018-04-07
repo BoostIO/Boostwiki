@@ -20,7 +20,7 @@ const nextApp = next({
 const handle = nextApp.getRequestHandler()
 const logger = require('morgan')
 
-const port = process.env.PORT
+const port = process.env.PORT || 3000
 
 nextApp.prepare()
   .then(() => {
@@ -37,6 +37,14 @@ nextApp.prepare()
       expressApp.use('/api', proxy('http://127.0.0.1:3001'))
       expressApp.use('/auth', proxy('http://127.0.0.1:3001'))
       expressApp.use('/files', proxy('http://127.0.0.1:3001'))
+    } else {
+      const rootRouter = require('./backend/build/rootRouter')
+      expressApp.all(/\/api|\/auth|\/ws/, (req, res, next) => {
+        req.url = req.baseUrl + req.url
+        req.path = req.baseUrl + req.path
+        req.baseUrl = '/'
+        next()
+      }, rootRouter)
     }
 
 

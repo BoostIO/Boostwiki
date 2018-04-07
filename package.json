@@ -4,10 +4,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "build": "npm run front:build && npm run back:build",
+    "start": "NODE_ENV=production node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
     "front:dev": "node server.js",
+    "front:build": "next build frontend",
     "back:tsc": "tsc -p backend -w",
     "back:dev": "node backend/build/scripts/runServer",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "back:build": "tsc -p backend"
   },
   "keywords": [],
   "author": "Junyoung Choi <fluke8259@gmail.com> (https://github.com/rokt33r)",
