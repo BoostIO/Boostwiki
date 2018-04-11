@@ -1,5 +1,5 @@
-import mongoose = require('mongoose')
-import configuration = require('../../configuration')
+import mongoose from 'mongoose'
+import configuration from '../../configuration'
 
 mongoose.Promise = global.Promise
 
@@ -32,4 +32,4 @@ connection.on('disconnected', function () {
   log('Mongoconnection disconnected!')
 })
 
-export = connection
+export default connection

@@ -14,4 +14,4 @@ class NotFoundError extends Error {
   }
 }
 
-export = NotFoundError
+export default NotFoundError

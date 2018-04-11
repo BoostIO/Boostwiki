@@ -1,5 +1,5 @@
-import express = require('express')
-import rootRouter = require('../rootRouter')
+import express from 'express'
+import rootRouter from '../rootRouter'
 
 const app = express()
 

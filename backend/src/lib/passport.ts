@@ -1,8 +1,8 @@
-import passport = require('passport')
-import User = require('../models/User')
-import PassportGithub = require('passport-github')
-import configuration = require('../configuration')
-import mongoose = require('mongoose')
+import passport from 'passport'
+import User from '../models/User'
+import PassportGithub from 'passport-github'
+import configuration from '../configuration'
+import mongoose from 'mongoose'
 
 const GitHubStrategy = PassportGithub.Strategy
 
@@ -52,4 +52,4 @@ passport.use(new GitHubStrategy(githubInfo,
   }
 ))
 
-export = passport
+export default passport

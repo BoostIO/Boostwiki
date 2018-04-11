@@ -1,10 +1,10 @@
 import express from 'express'
 import authRouter from './auth'
-import bodyParser = require('body-parser')
-import session = require('express-session')
-import passport = require('../lib/passport')
-import createRedisStore = require('connect-redis')
-import configuration = require('../configuration')
+import bodyParser from 'body-parser'
+import session from 'express-session'
+import passport from '../lib/passport'
+import createRedisStore from 'connect-redis'
+import configuration from '../configuration'
 import { NotFoundError } from '../lib/errors'
 import errorHandler from '../middlewares/errorHandler'
 

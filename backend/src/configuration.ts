@@ -16,7 +16,7 @@ if (dev) {
   })
 }
 
-export = {
+export default {
   nodeEnv: process.env.NODE_ENV || 'development',
   port: process.env.PORT || 3001,
   baseURL: process.env.BASE_URL || 'http://localhost:3001',

@@ -14,4 +14,4 @@ class BadRequestError extends Error {
   }
 }
 
-export = BadRequestError
+export default BadRequestError

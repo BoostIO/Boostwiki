@@ -63,4 +63,4 @@ router.use('/github/callback', ((error, req, res, next) => {
   res.redirect(`${configuration.webURL}/?${query}`)
 }) as ErrorRequestHandler)
 
-export = router
+export default router

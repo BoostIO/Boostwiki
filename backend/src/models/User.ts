@@ -1,7 +1,7 @@
-import mongoose = require('mongoose')
-import connection = require('../lib/db/connection')
+import mongoose from 'mongoose'
+import connection from '../lib/db/connection'
 
-const UserSchema: mongoose.Schema = new mongoose.Schema({
+const UserSchema = new mongoose.Schema({
   uniqueName: {
     type: String,
     required: true,
@@ -39,4 +39,4 @@ interface User extends mongoose.Document {
 
 const User = connection.model<User>('User', UserSchema)
 
-export = User
+export default User

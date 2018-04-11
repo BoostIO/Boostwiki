@@ -14,4 +14,4 @@ class InvalidBodyError extends Error {
   }
 }
 
-export = InvalidBodyError
+export default InvalidBodyError

@@ -14,4 +14,4 @@ class UnauthorizedError extends Error {
   }
 }
 
-export = UnauthorizedError
+export default UnauthorizedError

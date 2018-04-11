@@ -1,4 +1,4 @@
-import express = require('express')
+import express from 'express'
 
 interface HTTPError extends Error {
   code?: number
@@ -6,7 +6,7 @@ interface HTTPError extends Error {
   isJoi?: boolean
 }
 
-export = function createErrorHandler (): express.ErrorRequestHandler {
+export default function createErrorHandler (): express.ErrorRequestHandler {
   return function errorHandler (error: HTTPError, req: express.Request, res: express.Response, next: express.NextFunction) {
 
     const status = error.status

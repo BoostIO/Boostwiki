@@ -14,4 +14,4 @@ class ForbiddenError extends Error {
   }
 }
 
-export = ForbiddenError
+export default ForbiddenError
