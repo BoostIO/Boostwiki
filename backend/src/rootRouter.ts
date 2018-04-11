@@ -1,4 +1,5 @@
 import express = require('express')
+import apiRouter from './routes'
 
 const router = express.Router()
 
@@ -6,16 +7,10 @@ router.get('/', (req, res) => {
   res.send('root')
 })
 
-router.get('/api', (req, res) => {
-  res.send('api')
-})
-
-router.get('/auth', (req, res) => {
-  res.send('auth')
-})
+router.get('/api', apiRouter)
 
 router.get('/ws', (req, res) => {
   res.send('ws')
 })
 
-export = router
+export default router
