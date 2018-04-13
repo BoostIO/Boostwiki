@@ -5,7 +5,7 @@ import withGlobalState from '../lib/withGlobalState'
 
 export default withGlobalState()(() => (
   <DefaultLayout>
-    Homepage
-    <Link href='/users'><a>go to users</a></Link>
+    User
+    <Link href='/'><a>go to home</a></Link>
   </DefaultLayout>
 ))

@@ -12,6 +12,9 @@ if (dev) {
 const express = require('express')
 const next = require('next')
 const path = require('path')
+const mobxReact = require('mobx-react')
+
+mobxReact.useStaticRendering(true)
 
 const nextApp = next({
   dev,
