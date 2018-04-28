@@ -7,7 +7,7 @@ router.get('/', (req, res) => {
   res.send('root')
 })
 
-router.get('/api', apiRouter)
+router.use('/api', apiRouter)
 
 router.get('/ws', (req, res) => {
   res.send('ws')

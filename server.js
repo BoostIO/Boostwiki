@@ -50,7 +50,6 @@ nextApp.prepare()
       }, rootRouter)
     }
 
-
     expressApp.get('*', (req, res) => {
       return handle(req, res)
     })
