@@ -1,4 +1,4 @@
-import { ErrorRequestHandler } from 'express'
+import { RequestHandler, ErrorRequestHandler } from 'express'
 import Router from 'express-promise-router'
 import passport from '../lib/passport'
 import configuration from '../configuration'
@@ -17,7 +17,7 @@ router.get('/', async (req, res) => {
   })
 })
 
-router.delete('/', (req, res, next) => {
+const signOutHandler: RequestHandler = (req, res, next) => {
   req.session.destroy((err) => {
     if (err == null) {
       res.status(204).send()
@@ -25,7 +25,10 @@ router.delete('/', (req, res, next) => {
       next(err)
     }
   })
-})
+}
+
+router.delete('/', signOutHandler)
+router.get('/signout', signOutHandler)
 
 router.get('/github',
   function storeRedirectionTargetToSession (req, res, next) {
