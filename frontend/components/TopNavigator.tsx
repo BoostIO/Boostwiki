@@ -12,7 +12,7 @@ const TopNavigator = ({
   return <nav>
     <pre><code>{JSON.stringify(global, null, 2)}</code></pre>
     <h1>Boostwiki</h1>
-    <a href=''>Sign in</a>
+    <a href='/auth/github'>Sign in</a>
     <button onClick={global.plusOne}>++</button>
   </nav>
 }
