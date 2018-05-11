@@ -13,16 +13,17 @@ const githubInfo: PassportGithub.StrategyOption = {
   scope: ['user:email']
 }
 
-passport.serializeUser(function (_id: mongoose.Types.ObjectId, done) {
-  done(null, _id.toString())
-})
-
-passport.deserializeUser(async function (id: mongoose.Types.ObjectId | string, done) {
+passport.serializeUser(async function (user: User, done) {
   try {
-    done(null, new mongoose.mongo.ObjectId(id))
+    done(null, user._id)
   } catch (error) {
     done(error)
   }
+})
+
+passport.deserializeUser(async function (_id: mongoose.Types.ObjectId, done) {
+  const user = await User.findById(_id)
+  done(null, user)
 })
 
 passport.use(new GitHubStrategy(githubInfo,
@@ -45,7 +46,7 @@ passport.use(new GitHubStrategy(githubInfo,
           })
       }
 
-      cb(null, user._id)
+      cb(null, user)
     } catch (error) {
       cb(error)
     }
