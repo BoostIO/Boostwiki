@@ -28,8 +28,7 @@ router.delete('/', (req, res, next) => {
 })
 
 router.get('/github',
-  // Set redirectTo to session if given
-  (req, res, next) => {
+  function storeRedirectionTargetToSession (req, res, next) {
     if (req.query.redirectTo) {
       req.session.redirectTo = req.query.redirectTo
       req.session.save(next)
@@ -40,11 +39,9 @@ router.get('/github',
   passport.authenticate('github')
 )
 
-// Authenticate
 router.get('/github/callback',
   passport.authenticate('github', { failureRedirect: '/login' }),
-  // Redirect to session.redirectTo and flush it
-  (req, res, next) => {
+  function redirectAndCleanUpSession (req, res, next) {
     const redirectTo = typeof req.session.redirectTo === 'string'
     ? req.session.redirectTo
     : configuration.webURL

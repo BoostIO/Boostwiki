@@ -38,6 +38,7 @@ nextApp.prepare()
     if (dev) {
       const proxy = require('http-proxy-middleware')
       expressApp.use('/api', proxy(`http://127.0.0.1:${process.env.BACKEND_PORT}`))
+      expressApp.use('/auth', proxy(`http://127.0.0.1:${process.env.BACKEND_PORT}`))
       expressApp.use('/ws', proxy(`http://127.0.0.1:${process.env.BACKEND_PORT}`))
       expressApp.use('/files', proxy(`http://127.0.0.1:${process.env.BACKEND_PORT}`))
     } else {
