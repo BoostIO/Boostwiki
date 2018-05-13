@@ -3,6 +3,7 @@ import { Provider } from 'mobx-react'
 import GlobalState from './GlobalState'
 import { createQueryMap, Query } from './query'
 import isServer from './isServer'
+import axios, { AxiosRequestConfig } from 'axios'
 
 function withGlobalState<P> (createState?: ({
   pathname,
@@ -27,10 +28,23 @@ function withGlobalState<P> (createState?: ({
         const {
           pathname, query, asPath
         } = ctx
+
+        const options: AxiosRequestConfig = {}
+        if (ctx.req) {
+          options.headers = ctx.req.headers
+        }
+
+        const { currentUser } = (await axios.get('http://localhost:3000/auth', {
+          headers: ctx.req.headers
+        })).data
+
         return {
           pageProps: await this.getPageProps(ctx),
           pathname, query, asPath,
-          global: new GlobalState()
+          global: new GlobalState({
+            route: {},
+            currentUser
+          })
         }
       }
 
