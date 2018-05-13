@@ -29,14 +29,16 @@ function withGlobalState<P> (createState?: ({
           pathname, query, asPath
         } = ctx
 
+        let currentUser
         const options: AxiosRequestConfig = {}
-        if (ctx.req) {
+        if (isServer()) {
           options.headers = ctx.req.headers
-        }
+          const { data } = (await axios.get('http://localhost:3000/auth', {
+            headers: ctx.req.headers
+          }))
 
-        const { currentUser } = (await axios.get('http://localhost:3000/auth', {
-          headers: ctx.req.headers
-        })).data
+          currentUser = data.currentUser
+        }
 
         return {
           pageProps: await this.getPageProps(ctx),
