@@ -15,11 +15,9 @@ export interface GlobalStateSpecs {
 
 export default class GlobalState {
   @observable public route: RouteState
-  @observable public count: number
   @observable public currentUser?: CurrentUserState
 
   constructor (props?: GlobalStateSpecs) {
-    this.count = 0
     if (props == null) {
       this.route = new RouteState({})
       return
@@ -32,10 +30,5 @@ export default class GlobalState {
     if (props.currentUser != null) {
       this.currentUser = new CurrentUserState(props.currentUser)
     }
-  }
-
-  @action public plusOne = () => {
-    console.log('lll')
-    this.count++
   }
 }
