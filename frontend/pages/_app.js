@@ -3,8 +3,9 @@ import React from 'react'
 import { Provider } from 'mobx-react'
 import isServer from '../lib/isServer'
 import axios from 'axios'
-import GlobalState from '../lib/GlobalState'
+import { CurrentUserState } from '../lib/CurrentUserState'
 import { createQueryMap, Query } from '../lib/query'
+import { RouteState } from '../lib/RouteState';
 
 export default class MyApp extends App {
   static async getPageProps (ctx, Component) {
@@ -18,7 +19,7 @@ export default class MyApp extends App {
       pathname, query, asPath
     } = ctx
 
-    let currentUser
+    let currentUser, route
     const options = {}
     if (isServer()) {
       options.headers = ctx.req.headers
@@ -26,44 +27,53 @@ export default class MyApp extends App {
         headers: ctx.req.headers
       }))
 
-      currentUser = data.currentUser
+      if (data.currentUser) {
+        currentUser = new CurrentUserState(data.currentUser)
+      }
+
+      route = new RouteState({
+        pathname,
+        query: createQueryMap(query),
+        asPath
+      })
+    } else {
+      window.route.setRoute({
+        pathname,
+        query: createQueryMap(query),
+        asPath
+      })
     }
 
     return {
       pageProps: await this.getPageProps(ctx, Component),
       pathname, query, asPath,
-      global: new GlobalState({
-        route: {},
-        currentUser
-      })
+      currentUser,
+      route
     }
   }
 
   componentWillMount () {
     const {
-      pathname, query, asPath
+      currentUser,
+      route
     } = this.props
-    let { global } = this.props
 
     if (!isServer()) {
-      if ((window).globalState == null) {
-        (window).globalState = new GlobalState(global)
+      if (currentUser) {
+        window.currentUser = new CurrentUserState(currentUser)
       }
-      global = (window).globalState
+      window.route = new RouteState(route)
     }
-
-    global.route.setRoute({
-      pathname,
-      query: createQueryMap(query),
-      asPath
-    })
   }
 
   render () {
-    const { Component, pageProps, global } = this.props
+    const { Component, pageProps, currentUser, route } = this.props
 
     return <Container>
-      <Provider global={isServer() ? global : (window).globalState}>
+      <Provider
+        currentUser={isServer() ? currentUser : window.currentUser}
+        route={isServer() ? route : window.route}
+      >
         <Component {...pageProps}/>
       </Provider>
     </Container>

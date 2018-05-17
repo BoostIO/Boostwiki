@@ -1,20 +1,32 @@
 import React from 'react'
 import { inject, observer } from 'mobx-react'
-import GlobalState from '../lib/GlobalState'
+import { CurrentUserState } from '../lib/CurrentUserState'
+import { RouteState } from '../lib/RouteState'
 
 interface TopNavigatorProps {
-  global?: GlobalState
+  currentUser?: CurrentUserState
+  route?: RouteState
 }
 
-const TopNavigator = ({
-  global
-}: TopNavigatorProps) => {
-  return <nav>
-    <pre><code>{JSON.stringify(global, null, 2)}</code></pre>
-    <h1>Boostwiki</h1>
-    <a href='/auth/github'>Sign in</a>
-    <button onClick={global.plusOne}>++</button>
-  </nav>
+@inject('route')
+@inject('currentUser')
+@observer
+class TopNavigator extends React.Component<TopNavigatorProps> {
+  public render () {
+    const {
+      currentUser,
+      route
+    } = this.props
+    return (
+      <nav>
+        <h1>Boostwiki</h1>
+        {currentUser == null
+          ? <a href='/auth/github'>Sign in</a>
+          : <img src={`https://avatars3.githubusercontent.com/u/${currentUser.githubId}?v=4&s=30`} />
+        }
+      </nav>
+    )
+  }
 }
 
-export default inject('global')(observer(TopNavigator))
+export default TopNavigator
