@@ -1,11 +1,11 @@
 import React from 'react'
-import TopNavigator from './TopNavigator'
+// import TopNavigator from './TopNavigator'
 
 const DefaultLayout = ({
   children
 }) => (
   <div>
-    <TopNavigator />
+    {/* <TopNavigator /> */}
     <div>
       {children}
     </div>

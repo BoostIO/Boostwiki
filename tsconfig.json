@@ -5,8 +5,9 @@
     "module": "commonjs",
     "jsx": "preserve",
     "allowJs": true,
-    "moduleResolution": "node",
     "esModuleInterop": true,
+    "moduleResolution": "node",
+    "experimentalDecorators": true,
     "allowSyntheticDefaultImports": true,
     "noUnusedLocals": true,
     "removeComments": false,
@@ -20,8 +21,9 @@
     "lib": [
       "dom",
       "es2015",
-      "es2016"
+      "es2016",
+      "es2017"
     ],
-    "outDir": "build/"
+    "outDir": "production-server/"
   }
 }

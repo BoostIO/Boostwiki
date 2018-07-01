@@ -2,12 +2,24 @@ import App, { Container } from 'next/app'
 import React from 'react'
 import { Provider } from 'mobx-react'
 import isServer from '../lib/isServer'
-import axios from 'axios'
+import axios, { AxiosRequestConfig } from 'axios'
 import { CurrentUserState } from '../lib/CurrentUserState'
-import { createQueryMap, Query } from '../lib/query'
-import { RouteState } from '../lib/RouteState';
+import { createQueryMap } from '../lib/query'
+import { RouteState } from '../lib/RouteState'
 
-export default class MyApp extends App {
+declare global {
+  interface Window {
+    route: RouteState
+    currentUser: CurrentUserState
+  }
+}
+
+interface MyAppProps {
+  route: RouteState
+  currentUser: CurrentUserState
+}
+
+export default class MyApp extends App<MyAppProps> {
   static async getPageProps (ctx, Component) {
     return typeof Component.getInitialProps === 'function'
       ? Component.getInitialProps(ctx)
@@ -19,8 +31,9 @@ export default class MyApp extends App {
       pathname, query, asPath
     } = ctx
 
-    let currentUser, route
-    const options = {}
+    let currentUser
+    let route
+    const options: AxiosRequestConfig = {}
     if (isServer()) {
       options.headers = ctx.req.headers
       const { data } = (await axios.get('http://localhost:3000/auth', {
