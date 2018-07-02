@@ -16,7 +16,7 @@ connection.on('connecting', function () {
   log('connecting to Mongoconnection...')
 })
 connection.on('error', function (error) {
-  error('Error in Mongoconnection connection: ' + error)
+  console.error('Error in Mongoconnection connection: ' + error.message)
   mongoose.disconnect()
 })
 connection.on('connected', function () {
