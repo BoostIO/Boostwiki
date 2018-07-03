@@ -30,6 +30,7 @@
     "express-promise-router": "^3.0.2",
     "express-session": "^1.15.6",
     "joi": "^13.4.0",
+    "jss": "^9.8.7",
     "mobx": "^4.3.1",
     "mobx-react": "^5.2.3",
     "mongoose": "^5.1.7",
@@ -38,7 +39,9 @@
     "passport": "^0.4.0",
     "passport-github": "^1.1.0",
     "react": "^16.4.1",
-    "react-dom": "^16.4.1"
+    "react-dom": "^16.4.1",
+    "react-jss": "^8.6.0",
+    "styled-jsx": "^2.2.7"
   },
   "devDependencies": {
     "@types/body-parser": "^1.17.0",
@@ -48,6 +51,7 @@
     "@types/express-promise-router": "^2.0.0",
     "@types/express-session": "^1.15.10",
     "@types/joi": "^13.3.0",
+    "@types/jss": "^9.5.3",
     "@types/mongoose": "^5.0.18",
     "@types/morgan": "^1.7.35",
     "@types/node": "^10.5.1",
