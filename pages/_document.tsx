@@ -17,12 +17,10 @@ export default class MyDocumnet extends Document {
     return {
       ...page,
       pageContext,
-      // Styles fragment is rendered after the app and page rendering finish.
       styles: (
         <React.Fragment>
           <style
             id='jss-server-side'
-            // eslint-disable-next-line react/no-danger
             dangerouslySetInnerHTML={{ __html: pageContext.sheetsRegistry.toString() }}
           />
           {flush() || null}
