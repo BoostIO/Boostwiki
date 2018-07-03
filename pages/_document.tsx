@@ -32,8 +32,6 @@ export default class MyDocumnet extends Document {
   }
 
   render () {
-    const { pageContext } = this.props
-    console.log(pageContext)
     return (
       <html lang='en'>
         <Head>
@@ -46,9 +44,6 @@ export default class MyDocumnet extends Document {
               'minimum-scale=1, width=device-width, height=device-height'
             }
           />
-          <meta
-           name='theme-color'
-           content={pageContext.theme.palette.primary.main} />
           <link
             rel='stylesheet'
             href='https://fonts.googleapis.com/css?family=Roboto:300,400,500'

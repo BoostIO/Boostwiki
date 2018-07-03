@@ -42,7 +42,7 @@ class TopNavigator extends React.Component<TopNavigatorProps & WithStyles<ClassN
     } = this.props
     return (
       <div className={classes.root}>
-        <AppBar color='primary' position='fixed'>
+        <AppBar color='primary' position='static'>
           <Toolbar>
             <Typography variant='title' color='inherit' className={classes.flex}>
               Boostwiki
