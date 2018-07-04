@@ -19,7 +19,7 @@ export default function withPageContextApp (App: typeof MyApp): typeof App {
     }
 
     render () {
-      return <App {...this.props}pageContext={this.pageContext} />
+      return <App {...this.props} pageContext={this.pageContext} />
     }
   }
 }
