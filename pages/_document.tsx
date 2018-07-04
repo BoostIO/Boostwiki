@@ -3,7 +3,7 @@ import Document, { Head, Main, NextScript } from 'next/document'
 import flush from 'styled-jsx/server'
 
 export default class MyDocumnet extends Document {
-  getInitialProps (ctx) {
+  static getInitialProps (ctx) {
     let pageContext
     const page = ctx.renderPage(Component => {
       const WrappedComponent = props => {
