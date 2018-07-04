@@ -1,7 +1,14 @@
-import { SheetsRegistry } from 'jss'
-import { createMuiTheme, createGenerateClassName } from '@material-ui/core/styles'
+import { SheetsRegistry, GenerateClassName } from 'jss'
+import { createMuiTheme, createGenerateClassName, Theme } from '@material-ui/core/styles'
 import purple from '@material-ui/core/colors/purple'
 import blue from '@material-ui/core/colors/blue'
+
+export interface PageContext {
+  theme: Theme
+  sheetsManager: Map<any, any>
+  sheetsRegistry: SheetsRegistry
+  generateClassName: GenerateClassName<any>
+}
 
 const theme = createMuiTheme({
   palette: {
@@ -18,7 +25,7 @@ const theme = createMuiTheme({
   }
 })
 
-export default function createPageContext () {
+export default function createPageContext (): PageContext {
   return {
     theme,
     sheetsManager: new Map(),

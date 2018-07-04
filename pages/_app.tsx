@@ -6,10 +6,11 @@ import axios, { AxiosRequestConfig } from 'axios'
 import { CurrentUserState } from '../lib/CurrentUserState'
 import { createQueryMap } from '../lib/query'
 import { RouteState } from '../lib/RouteState'
-import getPageContext from '../lib/getPageContext'
 import JssProvider from 'react-jss/lib/JssProvider'
 import { MuiThemeProvider } from '@material-ui/core/styles'
 import { CssBaseline } from '@material-ui/core'
+import withPageContextApp from '../lib/withPageContextApp'
+import { PageContext } from '../lib/getPageContext'
 
 declare global {
   interface Window {
@@ -18,19 +19,14 @@ declare global {
   }
 }
 
-interface MyAppProps {
+export interface MyAppProps {
   route: RouteState
-  currentUser: CurrentUserState
+  currentUser: CurrentUserState,
+  pageContext: PageContext
 }
 
+@withPageContextApp
 export default class MyApp extends App<MyAppProps> {
-  constructor (props) {
-    super(props)
-    this.pageContext = getPageContext()
-  }
-
-  pageContext = null
-
   static async getPageProps (ctx, Component) {
     return typeof Component.getInitialProps === 'function'
       ? Component.getInitialProps(ctx)
@@ -90,30 +86,29 @@ export default class MyApp extends App<MyAppProps> {
     }
   }
 
-  componentDidMount () {
-    const jssStyles = document.querySelector('#jss-server-side')
-    if (jssStyles && jssStyles.parentNode) {
-      jssStyles.parentNode.removeChild(jssStyles)
-    }
-  }
-
   render () {
-    const { Component, pageProps, currentUser, route } = this.props
+    const {
+      Component,
+      pageProps,
+      currentUser,
+      route,
+      pageContext
+    } = this.props
 
     return <Container>
       <JssProvider
-        registry={this.pageContext.sheetsRegistry}
-        generateClassName={this.pageContext.generateClassName}>
+        registry={pageContext.sheetsRegistry}
+        generateClassName={pageContext.generateClassName}>
         <MuiThemeProvider
-          theme={this.pageContext.theme}
-          sheetsManager={this.pageContext.sheetsManager}
+          theme={pageContext.theme}
+          sheetsManager={pageContext.sheetsManager}
         >
           <CssBaseline />
           <Provider
             currentUser={isServer() ? currentUser : window.currentUser}
             route={isServer() ? route : window.route}
           >
-            <Component pageContext={this.pageContext} {...pageProps}/>
+            <Component pageContext={pageContext} {...pageProps}/>
           </Provider>
         </MuiThemeProvider>
       </JssProvider>
