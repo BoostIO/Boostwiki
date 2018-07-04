@@ -25,7 +25,7 @@ const theme = createMuiTheme({
   }
 })
 
-export default function createPageContext (): PageContext {
+export default function getPageContext (): PageContext {
   return {
     theme,
     sheetsManager: new Map(),
