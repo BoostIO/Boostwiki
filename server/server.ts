@@ -36,6 +36,10 @@ nextApp.prepare()
 
     expressApp.use(app)
 
+    expressApp.get('/w/:keyword', (req, res) => {
+      nextApp.render(req, res, '/wiki/show', Object.assign(req.params, req.query))
+    })
+
     expressApp.get('*', (req, res) => {
       return handle(req, res)
     })
