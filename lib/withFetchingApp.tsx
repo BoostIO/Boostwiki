@@ -68,7 +68,9 @@ export default function withFetchingApp (App: typeof MyApp): typeof App {
     }
 
     render () {
-      return <App {...this.props} />
+      return (
+        <App {...this.props} />
+      )
     }
   }
 }
