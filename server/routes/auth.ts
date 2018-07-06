@@ -3,6 +3,7 @@ import Router from 'express-promise-router'
 import passport from '../lib/passport'
 import configuration from '../configuration'
 import querystring from 'querystring'
+import { NotFoundError } from '../lib/errors'
 
 const router = Router()
 
@@ -62,5 +63,11 @@ router.use('/github/callback', ((error, req, res, next) => {
   })
   res.redirect(`${configuration.webURL}/?${query}`)
 }) as ErrorRequestHandler)
+
+router.use(function (req, res, next) {
+  const err = new NotFoundError('The api doesn\'t exist.')
+
+  next(err)
+})
 
 export default router
