@@ -6,7 +6,7 @@
   "scripts": {
     "build": "next build",
     "start": "NODE_ENV=production node server.js",
-    "dev": "nodemon server/app.ts",
+    "dev": "nodemon server/server.ts",
     "lint": "tslint -p ./tsconfig.json -c ./tslint.json -e './node_modules/**/*.ts{,x}' './**/*.ts{,x}'",
     "test": "NODE_ENV=test jest --forceExit -i -c jest.jso",
     "test:watch": "NODE_ENV=test jest --forceExit -i -c jest.json --watch"
