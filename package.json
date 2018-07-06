@@ -6,7 +6,6 @@
   "scripts": {
     "build": "next build",
     "start": "NODE_ENV=production node server.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon server/app.ts",
     "watch": "npm run back:tsc",
     "front:dev": "node server.js",
@@ -14,7 +13,9 @@
     "back:tsc": "tsc -p backend -w",
     "back:dev": "nodemon backend/build/scripts/runServer --watch backend/build",
     "back:build": "tsc -p backend",
-    "lint": "tslint -p ./tsconfig.json -c ./tslint.json -e './node_modules/**/*.ts{,x}' './**/*.ts{,x}'"
+    "lint": "tslint -p ./tsconfig.json -c ./tslint.json -e './node_modules/**/*.ts{,x}' './**/*.ts{,x}'",
+    "test": "NODE_ENV=test jest --forceExit -i -c jest.jso",
+    "test:watch": "NODE_ENV=test jest --forceExit -i -c jest.json --watch"
   },
   "keywords": [],
   "author": "Junyoung Choi <fluke8259@gmail.com> (https://github.com/rokt33r)",
