@@ -25,6 +25,7 @@ CACHE_REDIS_HOST=localhost
 CACHE_REDIS_DB=1
 ```
 Start mongodb and redis.
+
 Run Script.
 ```
 npm i
