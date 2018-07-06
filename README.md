@@ -1,6 +1,9 @@
 # Boostwiki
+
 ## Development
+
 Prepare `.env` file.
+
 ```
 BASE_URL=http://localhost:3000
 
@@ -28,11 +31,14 @@ CACHE_REDIS_DB=1
 Start mongodb and redis.
 
 Run Script.
+
 ```
 npm i
 npm nun dev
 ```
+
 ## Test
+
 Run Script.
 ```
 npm run test
