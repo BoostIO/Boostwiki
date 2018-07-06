@@ -7,12 +7,6 @@
     "build": "next build",
     "start": "NODE_ENV=production node server.js",
     "dev": "nodemon server/app.ts",
-    "watch": "npm run back:tsc",
-    "front:dev": "node server.js",
-    "front:build": "next build frontend",
-    "back:tsc": "tsc -p backend -w",
-    "back:dev": "nodemon backend/build/scripts/runServer --watch backend/build",
-    "back:build": "tsc -p backend",
     "lint": "tslint -p ./tsconfig.json -c ./tslint.json -e './node_modules/**/*.ts{,x}' './**/*.ts{,x}'",
     "test": "NODE_ENV=test jest --forceExit -i -c jest.jso",
     "test:watch": "NODE_ENV=test jest --forceExit -i -c jest.json --watch"
