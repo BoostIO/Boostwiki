@@ -16,8 +16,9 @@ declare global {
 
 export interface MyAppProps {
   route: RouteState
-  currentUser: CurrentUserState,
+  currentUser: CurrentUserState
   pageContext: PageContext
+  query: Object
 }
 
 @applyMaterialUI
@@ -27,13 +28,21 @@ export default class MyApp extends App<MyAppProps> {
     const {
       Component,
       pageProps,
-      pageContext
+      pageContext,
+      query,
+      route,
+      currentUser
     } = this.props
 
     return (
       <Container>
         <DefaultLayout>
-          <Component pageContext={pageContext} {...pageProps}/>
+          <Component
+            pageContext={pageContext}
+            query={query}
+            route={route}
+            currentUser={currentUser}
+            {...pageProps}/>
         </DefaultLayout>
       </Container>
     )
