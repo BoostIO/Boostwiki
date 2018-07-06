@@ -1,7 +1,7 @@
 import { SheetsRegistry, GenerateClassName } from 'jss'
 import { createMuiTheme, createGenerateClassName, Theme } from '@material-ui/core/styles'
 import purple from '@material-ui/core/colors/purple'
-import blue from '@material-ui/core/colors/blue'
+import grey from '@material-ui/core/colors/grey'
 
 export interface PageContext {
   theme: Theme
@@ -13,9 +13,9 @@ export interface PageContext {
 const theme = createMuiTheme({
   palette: {
     primary: {
-      light: blue[300],
-      main: blue[500],
-      dark: blue[700]
+      light: grey[50],
+      main: grey[100],
+      dark: grey[200]
     },
     secondary: {
       light: purple[300],

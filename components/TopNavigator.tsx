@@ -13,6 +13,7 @@ import {
   withStyles,
   WithStyles
 } from '@material-ui/core/styles'
+import grey from '@material-ui/core/colors/grey'
 
 interface TopNavigatorProps {
   currentUser?: CurrentUserState
@@ -21,7 +22,7 @@ interface TopNavigatorProps {
 
 const styles = {
   root: {
-    flexGrow: 1
+    borderBottom: `1px solid ${grey[300]}`
   },
   flex: {
     flex: 1
@@ -40,19 +41,21 @@ class TopNavigator extends React.Component<TopNavigatorProps & WithStyles<ClassN
       classes
     } = this.props
     return (
-      <div className={classes.root}>
-        <AppBar color='primary' position='static'>
-          <Toolbar>
-            <Typography variant='title' color='inherit' className={classes.flex}>
-              Boostwiki
-            </Typography>
-            {currentUser == null
-              ? <Button href='/auth/github' color='inherit'>Sign in</Button>
-              : <Avatar src={`https://avatars3.githubusercontent.com/u/${currentUser.githubId}?v=4&s=30`} />
-            }
-          </Toolbar>
-        </AppBar>
-      </div>
+      <AppBar
+        color='primary'
+        position='static'
+        elevation={0}
+        className={classes.root} >
+        <Toolbar>
+          <Typography variant='title' color='inherit' className={classes.flex}>
+            Boostwiki
+          </Typography>
+          {currentUser == null
+            ? <Button href='/auth/github' color='inherit'>Sign in</Button>
+            : <Avatar src={`https://avatars3.githubusercontent.com/u/${currentUser.githubId}?v=4&s=30`} />
+          }
+        </Toolbar>
+      </AppBar>
     )
   }
 }
