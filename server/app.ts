@@ -59,3 +59,6 @@ nextApp.prepare()
       console.log(`> Ready on http://127.0.0.1:${port}`)
     })
   })
+  .catch(error => {
+    console.error(error)
+  })

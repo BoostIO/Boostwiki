@@ -22,7 +22,7 @@ passport.serializeUser(async function (user: User, done) {
 })
 
 passport.deserializeUser(async function (_id: mongoose.Types.ObjectId, done) {
-  const user = await User.findById(_id)
+  const user = await User.findById(_id).exec()
   done(null, user)
 })
 
@@ -33,7 +33,7 @@ passport.use(new GitHubStrategy(githubInfo,
       let user = await User
         .findOne({
           githubId: profile.id
-        })
+        }).exec()
       // If the user doesn't exist, create a new user
       if (user == null) {
         user = await User

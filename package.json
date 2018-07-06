@@ -13,12 +13,14 @@
     "front:build": "next build frontend",
     "back:tsc": "tsc -p backend -w",
     "back:dev": "nodemon backend/build/scripts/runServer --watch backend/build",
-    "back:build": "tsc -p backend"
+    "back:build": "tsc -p backend",
+    "lint": "tslint -p ./tsconfig.json -c ./tslint.json -e './node_modules/**/*.ts{,x}' './**/*.ts{,x}'"
   },
   "keywords": [],
   "author": "Junyoung Choi <fluke8259@gmail.com> (https://github.com/rokt33r)",
   "license": "MIT",
   "dependencies": {
+    "@material-ui/core": "^1.3.0",
     "@types/next": "^6.0.4",
     "@zeit/next-typescript": "^1.1.0",
     "axios": "^0.18.0",
@@ -29,6 +31,7 @@
     "express-promise-router": "^3.0.2",
     "express-session": "^1.15.6",
     "joi": "^13.4.0",
+    "jss": "^9.8.7",
     "mobx": "^4.3.1",
     "mobx-react": "^5.2.3",
     "mongoose": "^5.1.7",
@@ -37,7 +40,9 @@
     "passport": "^0.4.0",
     "passport-github": "^1.1.0",
     "react": "^16.4.1",
-    "react-dom": "^16.4.1"
+    "react-dom": "^16.4.1",
+    "react-jss": "^8.6.0",
+    "styled-jsx": "^2.2.7"
   },
   "devDependencies": {
     "@types/body-parser": "^1.17.0",
@@ -47,6 +52,7 @@
     "@types/express-promise-router": "^2.0.0",
     "@types/express-session": "^1.15.10",
     "@types/joi": "^13.3.0",
+    "@types/jss": "^9.5.3",
     "@types/mongoose": "^5.0.18",
     "@types/morgan": "^1.7.35",
     "@types/node": "^10.5.1",
