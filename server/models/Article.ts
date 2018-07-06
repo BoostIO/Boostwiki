@@ -1,12 +1,9 @@
 import mongoose from 'mongoose'
 import connection from '../lib/db/connection'
+import Commit from './Commit'
 
 const ArticleSchema = new mongoose.Schema({
-  title: {
-    type: String,
-    required: true
-  },
-  content: {
+  keyword: {
     type: String,
     required: true
   },
@@ -15,17 +12,23 @@ const ArticleSchema = new mongoose.Schema({
     required: true,
     default: Date.now
   },
-  organization: {
+  updatedAt: {
+    type: Date,
+    required: true,
+    default: Date.now
+  },
+  headCommit: {
     type: mongoose.SchemaTypes.ObjectId,
-    ref: 'Organization'
+    ref: 'Commit',
+    required: true
   }
 })
 
 interface Article extends mongoose.Document {
-  title: string
-  content: string
-  tags: string[]
+  keyword: string
   createdAt: Date
+  updatedAt: Date
+  headCommit: mongoose.Types.ObjectId | Commit
 }
 const Article = connection.model<Article>('Article', ArticleSchema)
 
