@@ -2,8 +2,8 @@ import App, { Container } from 'next/app'
 import React from 'react'
 import { CurrentUserState } from '../lib/CurrentUserState'
 import { RouteState } from '../lib/RouteState'
-import withPageContextApp from '../lib/withPageContextApp'
-import withFetchingApp from '../lib/withFetchingApp'
+import applyMaterialUI from '../lib/applyMaterialUI'
+import initializeState from '../lib/initializeState'
 import { PageContext } from '../lib/getPageContext'
 
 declare global {
@@ -19,8 +19,8 @@ export interface MyAppProps {
   pageContext: PageContext
 }
 
-@withPageContextApp
-@withFetchingApp
+@applyMaterialUI
+@initializeState
 export default class MyApp extends App<MyAppProps> {
   render () {
     const {

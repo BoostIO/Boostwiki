@@ -5,7 +5,7 @@ import { CssBaseline } from '@material-ui/core'
 import { MuiThemeProvider } from '@material-ui/core/styles'
 import JssProvider from 'react-jss/lib/JssProvider'
 
-export default function withPageContextApp (App: typeof MyApp): typeof App {
+export default function applyMaterialUI (App: typeof MyApp): typeof App {
   return class extends App {
     constructor (props) {
       super(props)

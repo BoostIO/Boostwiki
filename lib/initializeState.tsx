@@ -7,7 +7,7 @@ import { RouteState } from '../lib/RouteState'
 import { createQueryMap } from '../lib/query'
 import MyApp from '../pages/_app'
 
-export default function withFetchingApp (App: typeof MyApp): typeof App {
+export default function initializeState (App: typeof MyApp): typeof App {
   return class extends App {
     static async getPageProps (ctx, Component) {
       return typeof Component.getInitialProps === 'function'
