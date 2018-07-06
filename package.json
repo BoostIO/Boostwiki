@@ -13,7 +13,8 @@
     "front:build": "next build frontend",
     "back:tsc": "tsc -p backend -w",
     "back:dev": "nodemon backend/build/scripts/runServer --watch backend/build",
-    "back:build": "tsc -p backend"
+    "back:build": "tsc -p backend",
+    "lint": "tslint -p ./tsconfig.json -c ./tslint.json -e './node_modules/**/*.ts{,x}' './**/*.ts{,x}'"
   },
   "keywords": [],
   "author": "Junyoung Choi <fluke8259@gmail.com> (https://github.com/rokt33r)",
