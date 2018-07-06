@@ -19,7 +19,7 @@ if (dev) {
 export default {
   nodeEnv: process.env.NODE_ENV || 'development',
   port: process.env.PORT || 3001,
-  baseURL: process.env.BASE_URL || 'http://localhost:3001',
+  baseURL: process.env.BASE_URL || 'http://localhost:3000',
   webURL: process.env.WEB_URL || 'http://localhost:3000',
   session: {
     secret: process.env.SESSION_SECRET || 'elided',
