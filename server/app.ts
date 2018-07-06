@@ -4,6 +4,10 @@ import { useStaticRendering } from 'mobx-react'
 import next from 'next'
 import logger from 'morgan'
 import rootRouter from './rootRouter'
+import apiRouter from './routes/api'
+import authRouter from './routes/auth'
+import { NotFoundError } from './lib/errors'
+import errorHandler from './middlewares/errorHandler'
 
 const dev = process.env.NODE_ENV !== 'production'
 
@@ -34,17 +38,21 @@ nextApp.prepare()
       : 'common'
     ))
 
-    expressApp.all(/\/api|\/auth|\/ws|\/files/, (req, res, next) => {
-      console.log(req.url, req.path, req.baseUrl)
-      // req.url = req.baseUrl + req.url
-      // req.path = req.baseUrl + req.path
-      // req.baseUrl = '/'
-      next()
-    }, rootRouter)
+    expressApp.use(rootRouter)
+    expressApp.use('/api', apiRouter)
+    expressApp.use('/auth', authRouter)
 
     expressApp.get('*', (req, res) => {
       return handle(req, res)
     })
+
+    expressApp.use(function (req, res, next) {
+      const err = new NotFoundError('The api doesn\'t exist.')
+
+      next(err)
+    })
+
+    expressApp.use(errorHandler())
 
     server.listen(port, (err) => {
       if (err) throw err
