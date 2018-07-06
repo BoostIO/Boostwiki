@@ -1,7 +1,5 @@
 import App, { Container } from 'next/app'
 import React from 'react'
-import { Provider } from 'mobx-react'
-import isServer from '../lib/isServer'
 import { CurrentUserState } from '../lib/CurrentUserState'
 import { RouteState } from '../lib/RouteState'
 import withPageContextApp from '../lib/withPageContextApp'
@@ -28,19 +26,12 @@ export default class MyApp extends App<MyAppProps> {
     const {
       Component,
       pageProps,
-      currentUser,
-      route,
       pageContext
     } = this.props
 
     return (
       <Container>
-        <Provider
-          currentUser={isServer() ? currentUser : window.currentUser}
-          route={isServer() ? route : window.route}
-        >
           <Component pageContext={pageContext} {...pageProps}/>
-        </Provider>
       </Container>
     )
   }

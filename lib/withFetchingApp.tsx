@@ -1,4 +1,5 @@
 import React from 'react'
+import { Provider } from 'mobx-react'
 import isServer from '../lib/isServer'
 import axios, { AxiosRequestConfig } from 'axios'
 import { CurrentUserState } from '../lib/CurrentUserState'
@@ -68,8 +69,18 @@ export default function withFetchingApp (App: typeof MyApp): typeof App {
     }
 
     render () {
+      const {
+        currentUser,
+        route
+      } = this.props
+
       return (
-        <App {...this.props} />
+        <Provider
+          currentUser={isServer() ? currentUser : window.currentUser}
+          route={isServer() ? route : window.route}
+        >
+          <App {...this.props} />
+        </Provider>
       )
     }
   }
