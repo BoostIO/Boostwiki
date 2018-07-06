@@ -37,7 +37,6 @@ class TopNavigator extends React.Component<TopNavigatorProps & WithStyles<ClassN
   public render () {
     const {
       currentUser,
-      route,
       classes
     } = this.props
     return (

@@ -18,6 +18,9 @@ connection.on('connecting', function () {
 connection.on('error', function (error) {
   console.error('Error in Mongoconnection connection: ' + error.message)
   mongoose.disconnect()
+    .catch(error => {
+      console.error(error)
+    })
 })
 connection.on('connected', function () {
   log('Mongoconnection connected!')

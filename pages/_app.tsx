@@ -31,7 +31,7 @@ export default class MyApp extends App<MyAppProps> {
 
     return (
       <Container>
-          <Component pageContext={pageContext} {...pageProps}/>
+        <Component pageContext={pageContext} {...pageProps}/>
       </Container>
     )
   }
