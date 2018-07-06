@@ -20,9 +20,6 @@ interface TopNavigatorProps {
 }
 
 const styles = {
-  root: {
-    flexGrow: 1
-  },
   flex: {
     flex: 1
   }
@@ -40,19 +37,20 @@ class TopNavigator extends React.Component<TopNavigatorProps & WithStyles<ClassN
       classes
     } = this.props
     return (
-      <div className={classes.root}>
-        <AppBar color='primary' position='static'>
-          <Toolbar>
-            <Typography variant='title' color='inherit' className={classes.flex}>
-              Boostwiki
-            </Typography>
-            {currentUser == null
-              ? <Button href='/auth/github' color='inherit'>Sign in</Button>
-              : <Avatar src={`https://avatars3.githubusercontent.com/u/${currentUser.githubId}?v=4&s=30`} />
-            }
-          </Toolbar>
-        </AppBar>
-      </div>
+      <AppBar
+        color='primary'
+        position='static'
+        elevation={0}>
+        <Toolbar>
+          <Typography variant='title' color='inherit' className={classes.flex}>
+            Boostwiki
+          </Typography>
+          {currentUser == null
+            ? <Button href='/auth/github' color='inherit'>Sign in</Button>
+            : <Avatar src={`https://avatars3.githubusercontent.com/u/${currentUser.githubId}?v=4&s=30`} />
+          }
+        </Toolbar>
+      </AppBar>
     )
   }
 }
