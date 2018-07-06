@@ -5,6 +5,7 @@ import { RouteState } from '../lib/RouteState'
 import applyMaterialUI from '../lib/applyMaterialUI'
 import initializeState from '../lib/initializeState'
 import { PageContext } from '../lib/getPageContext'
+import DefaultLayout from '../components/DefaultLayout'
 
 declare global {
   interface Window {
@@ -31,7 +32,9 @@ export default class MyApp extends App<MyAppProps> {
 
     return (
       <Container>
-        <Component pageContext={pageContext} {...pageProps}/>
+        <DefaultLayout>
+          <Component pageContext={pageContext} {...pageProps}/>
+        </DefaultLayout>
       </Container>
     )
   }
