@@ -13,6 +13,7 @@ import {
   withStyles,
   WithStyles
 } from '@material-ui/core/styles'
+import grey from '@material-ui/core/colors/grey'
 
 interface TopNavigatorProps {
   currentUser?: CurrentUserState
@@ -20,6 +21,9 @@ interface TopNavigatorProps {
 }
 
 const styles = {
+  root: {
+    borderBottom: `1px solid ${grey[300]}`
+  },
   flex: {
     flex: 1
   }
@@ -40,7 +44,8 @@ class TopNavigator extends React.Component<TopNavigatorProps & WithStyles<ClassN
       <AppBar
         color='primary'
         position='static'
-        elevation={0}>
+        elevation={0}
+        className={classes.root} >
         <Toolbar>
           <Typography variant='title' color='inherit' className={classes.flex}>
             Boostwiki
