@@ -15,12 +15,6 @@ interface ArticleShowProps {
   query: ArticleShowQuery
 }
 
-// const ArticleShow: React.SFC <ArticleShowProps> = ({ query }) => (
-//   <>
-//     <h1>{query.keyword}</h1>
-//   </>
-// )
-
 @withPageBundle
 export default class ArticleShow extends React.Component <ArticleShowProps & BundleContainerProps> {
   render (): JSX.Element {
