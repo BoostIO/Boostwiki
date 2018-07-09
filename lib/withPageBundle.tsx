@@ -7,15 +7,13 @@ interface PageBundleError {
   message: string
 }
 
-type PageProps = object
-
 export interface BundleContainerProps {
   pageProps?: object
   error?: PageBundleError
 }
 
 export const withPageBundle = <OriginalProps extends {}> (WrappedComponent: React.ComponentType<OriginalProps & BundleContainerProps>) => {
-  return class BundledComponent extends React.Component<OriginalProps & BundleContainerProps & PageProps> {
+  return class BundledComponent extends React.Component<OriginalProps & BundleContainerProps> {
     static async getInitialProps (ctx: NextContext): Promise<BundleContainerProps> {
       try {
         const pageProps = await getPageBundle(ctx)
@@ -36,11 +34,15 @@ export const withPageBundle = <OriginalProps extends {}> (WrappedComponent: Reac
 
     render (): JSX.Element {
       const {
-        pageProps
+        error
       } = this.props
 
+      if (error) {
+        return <div>Error!! {error.status} {error.message}</div>
+      }
+
       return (
-        <WrappedComponent {...pageProps} />
+        <WrappedComponent {...this.props} />
       )
     }
   }

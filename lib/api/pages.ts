@@ -5,7 +5,7 @@ import { NextContext } from 'next'
 export async function getPageBundle (ctx: NextContext) {
   const queryString = querystring.stringify(ctx.query)
 
-  const res = await api.get(`/pages${ctx.pathname}?${queryString}`)
+  const res = await api.get(`/api/pages${ctx.pathname}?${queryString}`)
 
   return res.data
 }
