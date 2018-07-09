@@ -8,7 +8,7 @@ interface PageBundleError {
 }
 
 export interface BundleContainerProps {
-  pageProps?: object
+  pageProps?: any
   error?: PageBundleError
 }
 
