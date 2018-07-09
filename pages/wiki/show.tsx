@@ -22,7 +22,7 @@ interface ArticleShowProps {
 // )
 
 @withPageBundle
-class ArticleShow extends React.Component <ArticleShowProps & BundleContainerProps> {
+export default class ArticleShow extends React.Component <ArticleShowProps & BundleContainerProps> {
   render (): JSX.Element {
     const {
       query
@@ -35,5 +35,3 @@ class ArticleShow extends React.Component <ArticleShowProps & BundleContainerPro
     )
   }
 }
-
-export default ArticleShow
