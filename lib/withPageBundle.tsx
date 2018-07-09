@@ -7,17 +7,40 @@ interface PageBundleError {
   message: string
 }
 
+type PageProps = object
+
 export interface BundleContainerProps {
-  pageProps: Object
-  error: PageBundleError
+  pageProps?: object
+  error?: PageBundleError
 }
 
 export const withPageBundle = <OriginalProps extends {}> (WrappedComponent: React.ComponentType<OriginalProps & BundleContainerProps>) => {
-  return class BundledComponent extends React.Component<OriginalProps & BundleContainerProps> {
-    render () {
-      console.log('hogehoge')
+  return class BundledComponent extends React.Component<OriginalProps & BundleContainerProps & PageProps> {
+    static async getInitialProps (ctx: NextContext): Promise<BundleContainerProps> {
+      try {
+        const pageProps = await getPageBundle(ctx)
+        return {
+          pageProps
+        }
+      } catch (error) {
+        return error.response != null
+          ? { error: {
+            status: error.response.status,
+            message: error.response.data.message
+          } }
+          : { error: {
+            message: error.message
+          } }
+      }
+    }
+
+    render (): JSX.Element {
+      const {
+        pageProps
+      } = this.props
+
       return (
-        <WrappedComponent {...this.props} />
+        <WrappedComponent {...pageProps} />
       )
     }
   }
@@ -28,21 +51,21 @@ export const withPageBundle = <OriginalProps extends {}> (WrappedComponent: Reac
 //   ) {
 //   return class extends React.Component<BundleContainerProps> {
 //     static async getInitialProps (ctx: NextContext) {
-//       try {
-//         const pageProps = await getPageBundle(ctx)
-//         return {
-//           pageProps
-//         }
-//       } catch (error) {
-//         return error.response != null
-//           ? { error: {
-//             status: error.response.status,
-//             message: error.response.data.message
-//           } }
-//           : { error: {
-//             message: error.message
-//           } }
-//       }
+      // try {
+      //   const pageProps = await getPageBundle(ctx)
+      //   return {
+      //     pageProps
+      //   }
+      // } catch (error) {
+      //   return error.response != null
+      //     ? { error: {
+      //       status: error.response.status,
+      //       message: error.response.data.message
+      //     } }
+      //     : { error: {
+      //       message: error.message
+      //     } }
+      // }
 //     }
 
 //     public render (): JSX.Element {
