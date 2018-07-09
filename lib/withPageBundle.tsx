@@ -12,7 +12,7 @@ export interface BundleContainerProps {
   error?: PageBundleError
 }
 
-export const withPageBundle = <OriginalProps extends {}> (WrappedComponent: React.ComponentType<OriginalProps & BundleContainerProps>) => {
+export function withPageBundle <OriginalProps extends {}> (WrappedComponent: React.ComponentType<OriginalProps & BundleContainerProps>) {
   return class BundledComponent extends React.Component<OriginalProps & BundleContainerProps> {
     static async getInitialProps (ctx: NextContext): Promise<BundleContainerProps> {
       try {
