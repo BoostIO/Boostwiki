@@ -4,8 +4,8 @@ import { CurrentUserState } from '../lib/CurrentUserState'
 import { RouteState } from '../lib/RouteState'
 import applyMaterialUI from '../lib/applyMaterialUI'
 import initializeState from '../lib/initializeState'
-import { PageContext } from '../lib/getPageContext'
 import DefaultLayout from '../components/DefaultLayout'
+import { RootProps } from '../lib/RootProps'
 
 declare global {
   interface Window {
@@ -14,12 +14,7 @@ declare global {
   }
 }
 
-export interface MyAppProps {
-  route: RouteState
-  currentUser: CurrentUserState
-  pageContext: PageContext
-  query: Object
-}
+type MyAppProps = RootProps<object>
 
 @applyMaterialUI
 @initializeState
