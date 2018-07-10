@@ -24,9 +24,7 @@ export default class MyApp extends App<MyAppProps> {
       Component,
       pageProps,
       pageContext,
-      query,
-      route,
-      currentUser
+      query
     } = this.props
 
     return (
@@ -35,8 +33,6 @@ export default class MyApp extends App<MyAppProps> {
           <Component
             pageContext={pageContext}
             query={query}
-            route={route}
-            currentUser={currentUser}
             {...pageProps}/>
         </DefaultLayout>
       </Container>

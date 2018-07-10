@@ -1,5 +1,6 @@
 import React from 'react'
 import Link from 'next/link'
+import { inject, observer } from 'mobx-react'
 import { Button } from '@material-ui/core'
 import { RootProps } from '../../lib/RootProps'
 import { withPageBundle, BundleContainerProps } from '../../lib/withPageBundle'
@@ -9,6 +10,8 @@ interface ArticleShowQuery {
 }
 
 @withPageBundle
+@inject('currentUser')
+@observer
 export default class ArticleShow extends React.Component <RootProps<ArticleShowQuery> & BundleContainerProps> {
   render (): JSX.Element {
     const {
