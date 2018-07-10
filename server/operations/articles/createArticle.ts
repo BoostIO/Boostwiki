@@ -20,7 +20,8 @@ export default async function createArticle (params: CreateArticleParams): Promi
   const headCommit = await createCommit({
     content,
     user,
-    article: article._id })
+    article: article._id
+  })
 
   article.headCommit = headCommit
 
