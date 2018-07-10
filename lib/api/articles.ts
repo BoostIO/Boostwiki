@@ -12,6 +12,7 @@ export async function createArticle (params: CreateArticleParams) {
 }
 
 interface UpdateArticleParams {
+  keyword: string
   content: string
 }
 

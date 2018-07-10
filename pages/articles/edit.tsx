@@ -5,7 +5,10 @@ import {
   BundleContainerProps
 } from '../../lib/withPageBundle'
 import { Button } from '@material-ui/core'
-import { createArticle } from '../../lib/api/articles'
+import {
+  createArticle,
+  updateArticle
+} from '../../lib/api/articles'
 import Router from 'next/router'
 
 interface ArticleEditQuery {
@@ -39,11 +42,14 @@ class ArticleEdit extends React.Component<RootProps<ArticleEditQuery> & BundleCo
 
     if (article == null) {
       await createArticle({
-        keyword: keyword,
+        keyword,
         content
       })
     } else {
-      console.log('article is not null')
+      await updateArticle({
+        keyword,
+        content
+      })
     }
 
     Router.push(`/articles/show?keyword=${keyword}`, `/w/${keyword}`)
