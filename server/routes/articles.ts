@@ -2,11 +2,24 @@ import Router from 'express-promise-router'
 import createArticle from '../operations/articles/createArticle'
 import updateArticle from '../operations/articles/updateArticle'
 import Article from '../models/Article'
+import Joi from 'joi'
 
 const router = Router()
 
+const articleSchemea = Joi.object().keys({
+  keyword: Joi.string(),
+  content: Joi.string()
+})
+
+interface ArticleSchema {
+  keyword: string
+  content: string
+}
+
 router.post('/', async (req, res) => {
-  const value = req.body
+  const { error, value } = Joi.validate<ArticleSchema>(req.body, articleSchemea)
+  if (error) throw error
+
   const { keyword, content } = value
   const user = req.user
 
@@ -22,8 +35,10 @@ router.post('/', async (req, res) => {
 })
 
 router.put('/', async (req, res) => {
-  const value = req.body
-  const { content, keyword } = value
+  const { error, value } = Joi.validate<ArticleSchema>(req.body, articleSchemea)
+  if (error) throw error
+
+  const { keyword, content } = value
   const user = req.user
 
   const baseArticle = await Article.findOne({
