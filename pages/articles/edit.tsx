@@ -4,9 +4,8 @@ import {
   withPageBundle,
   BundleContainerProps
 } from '../../lib/withPageBundle'
-import {
-  Button
-} from '@material-ui/core'
+import { Button } from '@material-ui/core'
+import { createArticle } from '../../lib/api/articles'
 
 interface ArticleEditQuery {
   keyword: string
@@ -19,24 +18,32 @@ interface ArticleEditState {
 class ArticleEdit extends React.Component<RootProps<ArticleEditQuery> & BundleContainerProps, ArticleEditState> {
   constructor (props) {
     super(props)
+    const { article } = props.pageProps
 
     this.state = {
-      content: ''
+      content: article == null
+        ? ''
+        : article.headCommit.content
     }
   }
 
   setContent = (content) => this.setState({ content })
 
-  handleEditorOnChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    this.setContent(e.currentTarget.value)
-  }
+  handleEditorOnChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => this.setContent(e.currentTarget.value)
 
-  handleOnClickSubmitButton () {
-    const {
-      content
-    } = this.state
+  handleOnClickSubmitButton = async () => {
+    const { query, pageProps } = this.props
+    const { article } = pageProps
+    const { content } = this.state
 
-    console.log(content)
+    if (article == null) {
+      await createArticle({
+        keyword: query.keyword,
+        content
+      })
+    } else {
+      console.log(article)
+    }
   }
 
   render (): JSX.Element {
@@ -46,8 +53,6 @@ class ArticleEdit extends React.Component<RootProps<ArticleEditQuery> & BundleCo
     const {
       content
     } = this.state
-
-    console.log(this.props)
 
     return (
       <>

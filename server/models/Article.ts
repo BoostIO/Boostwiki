@@ -19,8 +19,7 @@ const ArticleSchema = new mongoose.Schema({
   },
   headCommit: {
     type: mongoose.SchemaTypes.ObjectId,
-    ref: 'Commit',
-    required: true
+    ref: 'Commit'
   }
 })
 
