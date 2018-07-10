@@ -6,6 +6,7 @@ import {
 } from '../../lib/withPageBundle'
 import { Button } from '@material-ui/core'
 import { createArticle } from '../../lib/api/articles'
+import Router from 'next/router'
 
 interface ArticleEditQuery {
   keyword: string
@@ -32,18 +33,21 @@ class ArticleEdit extends React.Component<RootProps<ArticleEditQuery> & BundleCo
   handleEditorOnChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => this.setContent(e.currentTarget.value)
 
   handleOnClickSubmitButton = async () => {
-    const { query, pageProps } = this.props
-    const { article } = pageProps
+    const { keyword } = this.props.query
+    const { article } = this.props.pageProps
     const { content } = this.state
 
     if (article == null) {
       await createArticle({
-        keyword: query.keyword,
+        keyword: keyword,
         content
       })
     } else {
-      console.log(article)
+      console.log('article is not null')
     }
+
+    Router.push(`/articles/show?keyword=${keyword}`, `/w/${keyword}`)
+    return
   }
 
   render (): JSX.Element {
