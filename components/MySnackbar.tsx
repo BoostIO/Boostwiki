@@ -37,6 +37,9 @@ const styles = {
   icon: {
     fontSize: '20px'
   },
+  iconVariant: {
+    marginRight: '8px'
+  },
   message: {
     display: 'flex',
     alignItems: 'center'
@@ -62,7 +65,7 @@ const MySnackbar: React.SFC<SnackbarProps & WithStyles<ClassNames>> = (props) =>
       }}
       message={
         <span id='message-id' className={classes.message}>
-          <Icon className={classes.icon} />
+          <Icon className={classnames(classes.icon, classes.iconVariant)} />
           {message}
         </span>
       }
