@@ -1,10 +1,24 @@
 import React from 'react'
-import Link from 'next/link'
-import { Typography } from '@material-ui/core'
+import { withPageBundle } from '../lib/withPageBundle'
+import { Article } from '../lib/models'
 
-export default () => (
-  <>
-    <Typography variant='display2'>Homepage</Typography>
-    <Link href='/users'><a>go to users</a></Link>
-  </>
-)
+interface TopPageProps {
+  pageProps: {
+    articles: Article[]
+  }
+}
+
+const TopComponent: React.SFC<TopPageProps> = ({ pageProps }) => {
+  const { articles } = pageProps
+  return (
+    <>
+      {articles.length > 0
+        ? articles.map(article => (
+          <p key={article._id}>{article.keyword}</p>
+        ))
+        : <p>There is no article.</p>}
+    </>
+  )
+}
+
+export default withPageBundle(TopComponent)
