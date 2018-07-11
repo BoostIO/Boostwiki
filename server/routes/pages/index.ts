@@ -13,6 +13,7 @@ router.get('/', async (req, res) => {
     .find({})
     .limit(20)
     .sort({ createdAt: -1 })
+    .populate('headCommit')
     .exec()
 
   res.json({

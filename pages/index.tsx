@@ -1,6 +1,7 @@
 import React from 'react'
 import { withPageBundle } from '../lib/withPageBundle'
 import { Article } from '../lib/models'
+import ArticleCard from '../components/ArticleCard'
 
 interface TopPageProps {
   pageProps: {
@@ -14,7 +15,10 @@ const TopComponent: React.SFC<TopPageProps> = ({ pageProps }) => {
     <>
       {articles.length > 0
         ? articles.map(article => (
-          <p key={article._id}>{article.keyword}</p>
+          <ArticleCard
+            key={article._id}
+            article={article}
+          />
         ))
         : <p>There is no article.</p>}
     </>
