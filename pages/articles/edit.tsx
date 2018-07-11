@@ -9,6 +9,7 @@ import {
   createArticle,
   updateArticle
 } from '../../lib/api/articles'
+import { withAuthentication } from '../../lib/withAuthentication'
 import Router from 'next/router'
 
 interface ArticleEditQuery {
@@ -80,4 +81,4 @@ class ArticleEdit extends React.Component<RootProps<ArticleEditQuery> & BundleCo
   }
 }
 
-export default withPageBundle(ArticleEdit)
+export default withPageBundle(withAuthentication(ArticleEdit))
