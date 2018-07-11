@@ -33,9 +33,9 @@ class ArticleEdit extends React.Component<RootProps<ArticleEditQuery> & BundleCo
 
   setContent = (content) => this.setState({ content })
 
-  handleEditorOnChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => this.setContent(e.currentTarget.value)
+  handleChangeEditor = (e: React.ChangeEvent<HTMLTextAreaElement>) => this.setContent(e.currentTarget.value)
 
-  handleOnClickSubmitButton = async () => {
+  handleClickSubmitButton = async () => {
     const { keyword } = this.props.query
     const { article } = this.props.pageProps
     const { content } = this.state
@@ -70,9 +70,9 @@ class ArticleEdit extends React.Component<RootProps<ArticleEditQuery> & BundleCo
         <textarea
           value={content}
           onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
-            this.handleEditorOnChange(e)
+            this.handleChangeEditor(e)
           }} />
-        <Button onClick={this.handleOnClickSubmitButton.bind(this)}>
+        <Button onClick={this.handleClickSubmitButton.bind(this)}>
           Push
         </Button>
       </>

@@ -9,10 +9,9 @@ interface ArticleShowQuery {
   keyword: string
 }
 
-@withPageBundle
 @inject('currentUser')
 @observer
-export default class ArticleShow extends React.Component <RootProps<ArticleShowQuery> & BundleContainerProps> {
+class ArticleShow extends React.Component <RootProps<ArticleShowQuery> & BundleContainerProps> {
   render (): JSX.Element {
     const {
       query,
@@ -46,3 +45,5 @@ export default class ArticleShow extends React.Component <RootProps<ArticleShowQ
     )
   }
 }
+
+export default withPageBundle(ArticleShow)
