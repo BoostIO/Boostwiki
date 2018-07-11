@@ -10,6 +10,7 @@ import {
   updateArticle
 } from '../../lib/api/articles'
 import { withAuthentication } from '../../lib/withAuthentication'
+import MySnackbar from '../../components/MySnackbar'
 import Router from 'next/router'
 
 interface ArticleEditQuery {
@@ -18,6 +19,7 @@ interface ArticleEditQuery {
 
 interface ArticleEditState {
   content: string
+  errorMessage: string
 }
 
 class ArticleEdit extends React.Component<RootProps<ArticleEditQuery> & BundleContainerProps, ArticleEditState> {
@@ -28,33 +30,41 @@ class ArticleEdit extends React.Component<RootProps<ArticleEditQuery> & BundleCo
     this.state = {
       content: article == null
         ? ''
-        : article.headCommit.content
+        : article.headCommit.content,
+      errorMessage: ''
     }
   }
 
   setContent = (content) => this.setState({ content })
+  setError = (errorMessage) => this.setState({ errorMessage })
 
   handleChangeEditor = (e: React.ChangeEvent<HTMLTextAreaElement>) => this.setContent(e.currentTarget.value)
+
+  handleSnackbarClose = () => this.setError('')
 
   handleClickSubmitButton = async () => {
     const { keyword } = this.props.query
     const { article } = this.props.pageProps
     const { content } = this.state
 
-    if (article == null) {
-      await createArticle({
-        keyword,
-        content
-      })
-    } else {
-      await updateArticle({
-        keyword,
-        content
-      })
-    }
+    try {
+      if (article == null) {
+        await createArticle({
+          keyword,
+          content
+        })
+      } else {
+        await updateArticle({
+          keyword,
+          content
+        })
+      }
 
-    Router.push(`/articles/show?keyword=${keyword}`, `/w/${keyword}`)
-    return
+      Router.push(`/articles/show?keyword=${keyword}`, `/w/${keyword}`)
+      return
+    } catch (error) {
+      this.setError(error.message)
+    }
   }
 
   render (): JSX.Element {
@@ -62,7 +72,8 @@ class ArticleEdit extends React.Component<RootProps<ArticleEditQuery> & BundleCo
       query
     } = this.props
     const {
-      content
+      content,
+      errorMessage
     } = this.state
 
     return (
@@ -76,6 +87,12 @@ class ArticleEdit extends React.Component<RootProps<ArticleEditQuery> & BundleCo
         <Button onClick={this.handleClickSubmitButton.bind(this)}>
           Push
         </Button>
+        <MySnackbar
+          onClose={this.handleSnackbarClose}
+          open={errorMessage !== ''}
+          message={errorMessage}
+          variant='error'
+        />
       </>
     )
   }
