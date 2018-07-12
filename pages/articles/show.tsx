@@ -1,33 +1,50 @@
 import React from 'react'
 import Link from 'next/link'
 import { inject, observer } from 'mobx-react'
-import { Button } from '@material-ui/core'
+import { Button, Typography } from '@material-ui/core'
 import { withPageBundle, BundleContainerProps } from '../../lib/withPageBundle'
 import { CurrentUserState } from 'lib/CurrentUserState'
 import { RouteState } from 'lib/RouteState'
+import { withStyles, WithStyles } from '@material-ui/core/styles'
 
 interface ArticleShowProps {
   currentUser: CurrentUserState
   route: RouteState
 }
 
+const styles = {
+  root: {
+    width: 1350,
+    marginRight: 'auto',
+    marginLeft: 'auto'
+  },
+  title: {
+    borderTop: '1px solid black',
+    paddingTop: 15,
+    marginTop: 60
+  }
+}
+
+type ClassNames = keyof typeof styles
+
 @inject('route')
 @inject('currentUser')
 @observer
-class ArticleShow extends React.Component <ArticleShowProps & BundleContainerProps> {
+class ArticleShow extends React.Component <ArticleShowProps & BundleContainerProps & WithStyles<ClassNames>> {
   render (): JSX.Element {
     const {
       currentUser,
       pageProps,
-      route
+      route,
+      classes
     } = this.props
 
     const keyword = route.query.get('keyword')
     const { article } = pageProps
 
     return (
-      <>
-        <h1>{keyword}</h1>
+      <main className={classes.root}>
+        <Typography variant='headline' className={classes.title}>{keyword}</Typography>
 
         {article == null
           ? <p>{`The content of "${keyword}" does not exist.`}</p>
@@ -40,14 +57,14 @@ class ArticleShow extends React.Component <ArticleShowProps & BundleContainerPro
               href={`/articles/edit?keyword=${keyword}`}
               as={`/w/${keyword}/edit`}
               passHref>
-              <Button>Edit</Button>
+              <Button size='small' color='secondary'>Edit</Button>
             </Link>
            )
         }
 
-      </>
+      </main>
     )
   }
 }
 
-export default withPageBundle(ArticleShow)
+export default withStyles(styles)(withPageBundle(ArticleShow))
