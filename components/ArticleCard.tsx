@@ -18,9 +18,6 @@ interface ArticleCardProps {
 }
 
 const styles = {
-  card: {
-    width: 275
-  },
   title: {
     marginBottom: 16,
     fontSize: 16,
@@ -31,12 +28,12 @@ const styles = {
 type ClassNames = keyof typeof styles
 
 const ArticleCard: React.SFC<ArticleCardProps & WithStyles<ClassNames>> = ({ article, classes }) => (
-  <Card className={classes.card}>
+  <Card>
     <CardContent>
       <Typography className={classes.title}>
         {article.keyword}
       </Typography>
-      <Typography noWrap>
+      <Typography noWrap color='textSecondary'>
         {article.headCommit.content}
       </Typography>
     </CardContent>

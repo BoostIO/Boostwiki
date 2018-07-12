@@ -7,7 +7,7 @@ import { Grid } from '@material-ui/core'
 
 const styles = {
   root: {
-    maxWidth: 880,
+    maxWidth: 1350,
     marginRight: 'auto',
     marginLeft: 'auto',
     paddingTop: 16
@@ -28,7 +28,7 @@ const TopComponent: React.SFC<TopPageProps & WithStyles<ClassNames>> = ({ pagePr
     <Grid container className={classes.root} spacing={16} justify='space-between'>
       {articles.length > 0
         ? articles.map(article => (
-          <Grid item key={article._id}>
+          <Grid item key={article._id} xs={3}>
             <ArticleCard
               article={article}
             />
