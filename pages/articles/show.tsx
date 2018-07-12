@@ -5,27 +5,29 @@ import { Button, Typography } from '@material-ui/core'
 import { withPageBundle, BundleContainerProps } from '../../lib/withPageBundle'
 import { CurrentUserState } from 'lib/CurrentUserState'
 import { RouteState } from 'lib/RouteState'
-import { withStyles, WithStyles } from '@material-ui/core/styles'
+import { withStyles, WithStyles, Theme, createStyles } from '@material-ui/core/styles'
 
 interface ArticleShowProps {
   currentUser: CurrentUserState
   route: RouteState
 }
 
-const styles = {
+const styles = ({ palette }: Theme) => createStyles({
   root: {
-    width: 1350,
+    maxWidth: 1350,
     marginRight: 'auto',
-    marginLeft: 'auto'
+    marginLeft: 'auto',
+    paddingRight: 30,
+    paddingLeft: 30
   },
   title: {
-    borderTop: '1px solid black',
+    borderTop: `2px solid ${palette.primary.dark}`,
     paddingTop: 15,
     marginTop: 60
   }
-}
+})
 
-type ClassNames = keyof typeof styles
+type ClassNames = typeof styles
 
 @inject('route')
 @inject('currentUser')
