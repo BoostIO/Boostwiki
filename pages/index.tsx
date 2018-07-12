@@ -25,7 +25,7 @@ interface TopPageProps {
 const TopComponent: React.SFC<TopPageProps & WithStyles<ClassNames>> = ({ pageProps, classes }) => {
   const { articles } = pageProps
   return (
-    <Grid container className={classes.root} spacing={16} justify='space-between'>
+    <Grid container className={classes.root} spacing={16}>
       {articles.length > 0
         ? articles.map(article => (
           <Grid item key={article._id} xs={3}>
