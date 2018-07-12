@@ -21,7 +21,7 @@ const styles = ({ palette }: Theme) => createStyles({
     paddingLeft: 30
   },
   title: {
-    borderTop: `2px solid ${palette.primary.dark}`,
+    borderTop: `1px solid ${palette.primary.dark}`,
     paddingTop: 15,
     marginTop: 60
   }

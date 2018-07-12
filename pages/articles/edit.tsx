@@ -4,7 +4,7 @@ import {
   withPageBundle,
   BundleContainerProps
 } from '../../lib/withPageBundle'
-import { Button } from '@material-ui/core'
+import { Button, Typography } from '@material-ui/core'
 import {
   createArticle,
   updateArticle
@@ -13,6 +13,12 @@ import { withAuthentication } from '../../lib/withAuthentication'
 import MySnackbar from '../../components/MySnackbar'
 import Router from 'next/router'
 import { RouteState } from '../../lib/RouteState'
+import {
+  withStyles,
+  WithStyles,
+  createStyles,
+  Theme
+} from '@material-ui/core/styles'
 
 interface ArticleEditProps {
   route: RouteState
@@ -23,9 +29,26 @@ interface ArticleEditState {
   errorMessage: string
 }
 
+const styles = ({ palette }: Theme) => createStyles({
+  root: {
+    maxWidth: 1350,
+    marginRight: 'auto',
+    marginLeft: 'auto',
+    paddingRight: 30,
+    paddingLeft: 30
+  },
+  title: {
+    borderTop: `1px solid ${palette.primary.dark}`,
+    paddingTop: 15,
+    marginTop: 60
+  }
+})
+
+type ClassNames = typeof styles
+
 @inject('route')
 @observer
-class ArticleEdit extends React.Component<ArticleEditProps & BundleContainerProps, ArticleEditState> {
+class ArticleEdit extends React.Component<ArticleEditProps & BundleContainerProps & WithStyles<ClassNames>, ArticleEditState> {
   constructor (props) {
     super(props)
     const { article } = props.pageProps
@@ -75,17 +98,28 @@ class ArticleEdit extends React.Component<ArticleEditProps & BundleContainerProp
       content,
       errorMessage
     } = this.state
-    const keyword = this.props.route.query.get('keyword')
+    const {
+      classes,
+      route
+    } = this.props
+    const keyword = route.query.get('keyword')
 
     return (
-      <>
-        <h1>{keyword}</h1>
+      <main className={classes.root}>
+        <Typography
+          variant='headline'
+          className={classes.title}>
+          {keyword}
+        </Typography>
         <textarea
           value={content}
           onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
             this.handleChangeEditor(e)
           }} />
-        <Button onClick={this.handleClickSubmitButton.bind(this)}>
+        <Button
+          size='small'
+          color='secondary'
+          onClick={this.handleClickSubmitButton.bind(this)}>
           Push
         </Button>
         <MySnackbar
@@ -94,9 +128,9 @@ class ArticleEdit extends React.Component<ArticleEditProps & BundleContainerProp
           message={errorMessage}
           variant='error'
         />
-      </>
+      </main>
     )
   }
 }
 
-export default withPageBundle(withAuthentication(ArticleEdit))
+export default withStyles(styles)(withPageBundle(withAuthentication(ArticleEdit)))
