@@ -1,5 +1,5 @@
 import React from 'react'
-import { RootProps } from '../../lib/RootProps'
+import { inject, observer } from 'mobx-react'
 import {
   withPageBundle,
   BundleContainerProps
@@ -12,9 +12,10 @@ import {
 import { withAuthentication } from '../../lib/withAuthentication'
 import MySnackbar from '../../components/MySnackbar'
 import Router from 'next/router'
+import { RouteState } from '../../lib/RouteState'
 
-interface ArticleEditQuery {
-  keyword: string
+interface ArticleEditProps {
+  route: RouteState
 }
 
 interface ArticleEditState {
@@ -22,7 +23,9 @@ interface ArticleEditState {
   errorMessage: string
 }
 
-class ArticleEdit extends React.Component<RootProps<ArticleEditQuery> & BundleContainerProps, ArticleEditState> {
+@inject('route')
+@observer
+class ArticleEdit extends React.Component<ArticleEditProps & BundleContainerProps, ArticleEditState> {
   constructor (props) {
     super(props)
     const { article } = props.pageProps
@@ -43,7 +46,7 @@ class ArticleEdit extends React.Component<RootProps<ArticleEditQuery> & BundleCo
   handleSnackbarClose = () => this.setError('')
 
   handleClickSubmitButton = async () => {
-    const { keyword } = this.props.query
+    const keyword = this.props.route.query.get('keyword')
     const { article } = this.props.pageProps
     const { content } = this.state
 
@@ -69,16 +72,14 @@ class ArticleEdit extends React.Component<RootProps<ArticleEditQuery> & BundleCo
 
   render (): JSX.Element {
     const {
-      query
-    } = this.props
-    const {
       content,
       errorMessage
     } = this.state
+    const keyword = this.props.route.query.get('keyword')
 
     return (
       <>
-        <h1>{query.keyword}</h1>
+        <h1>{keyword}</h1>
         <textarea
           value={content}
           onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => {

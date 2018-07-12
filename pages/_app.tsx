@@ -5,7 +5,7 @@ import { RouteState } from '../lib/RouteState'
 import applyMaterialUI from '../lib/applyMaterialUI'
 import initializeState from '../lib/initializeState'
 import DefaultLayout from '../components/DefaultLayout'
-import { RootProps } from '../lib/RootProps'
+import { PageContext } from '../lib/getPageContext'
 
 declare global {
   interface Window {
@@ -14,7 +14,11 @@ declare global {
   }
 }
 
-type MyAppProps = RootProps<object>
+interface MyAppProps {
+  pageContext: PageContext
+  route: RouteState
+  currentUser: CurrentUserState
+}
 
 @applyMaterialUI
 @initializeState
@@ -23,8 +27,7 @@ export default class MyApp extends App<MyAppProps> {
     const {
       Component,
       pageProps,
-      pageContext,
-      query
+      pageContext
     } = this.props
 
     return (
@@ -32,7 +35,6 @@ export default class MyApp extends App<MyAppProps> {
         <DefaultLayout>
           <Component
             pageContext={pageContext}
-            query={query}
             {...pageProps}/>
         </DefaultLayout>
       </Container>
