@@ -3,15 +3,14 @@ import {
   Card,
   CardActions,
   CardContent,
-  Typography,
-  Button
+  Typography
 } from '@material-ui/core'
 import {
   withStyles,
   WithStyles
 } from '@material-ui/core/styles'
-import Link from 'next/link'
 import { Article } from '../lib/models'
+import ButtonLink from '../components/ButtonLink'
 
 interface ArticleCardProps {
   article: Article
@@ -38,13 +37,18 @@ const ArticleCard: React.SFC<ArticleCardProps & WithStyles<ClassNames>> = ({ art
       </Typography>
     </CardContent>
     <CardActions>
-      <Link
-        href={`/articles/show?keyword=${article.keyword}`}
-        as={`/w/${article.keyword}`}
-        passHref
+      <ButtonLink
+        linkProps={{
+          href: `/articles/show?keyword=${article.keyword}`,
+          as: `/w/${article.keyword}`
+        }}
+        buttonProps={{
+          size: 'small',
+          color: 'secondary'
+        }}
       >
-        <Button size='small' color='secondary'>Read</Button>
-      </Link>
+        Read
+      </ButtonLink>
     </CardActions>
   </Card>
 )
