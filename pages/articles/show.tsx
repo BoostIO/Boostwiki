@@ -1,11 +1,11 @@
 import React from 'react'
-import Link from 'next/link'
 import { inject, observer } from 'mobx-react'
 import { Button, Typography } from '@material-ui/core'
 import { withPageBundle, BundleContainerProps } from '../../lib/withPageBundle'
 import { CurrentUserState } from 'lib/CurrentUserState'
 import { RouteState } from 'lib/RouteState'
 import { withStyles, WithStyles, Theme, createStyles } from '@material-ui/core/styles'
+import ButtonLink from '../../components/ButtonLink'
 
 interface ArticleShowProps {
   currentUser: CurrentUserState
@@ -55,12 +55,18 @@ class ArticleShow extends React.Component <ArticleShowProps & BundleContainerPro
         {currentUser == null
            ? <Button href='/auth/github'>Sign In</Button>
            : (
-            <Link
-              href={`/articles/edit?keyword=${keyword}`}
-              as={`/w/${keyword}/edit`}
-              passHref>
-              <Button size='small' color='secondary'>Edit</Button>
-            </Link>
+            <ButtonLink
+              linkProps={{
+                href: `/articles/edit?keyword=${keyword}`,
+                as: `/w/${keyword}/edit`
+              }}
+              buttonProps={{
+                size: 'small',
+                color: 'secondary'
+              }}
+            >
+              Edit
+            </ButtonLink>
            )
         }
 
