@@ -1,24 +1,36 @@
 import { observable, action } from 'mobx'
 
+interface User {
+  uniqueName: string
+  displayName: string
+  githubId: string
+}
+
 export class CurrentUserState {
-  @observable public uniqueName: string
-  @observable public displayName: string
-  @observable public githubId: string
+  @observable public currentUser: User
 
   constructor ({
     uniqueName,
     displayName,
     githubId
   }: CurrentUserStateSpecs) {
-    this.uniqueName = uniqueName
-    this.displayName = displayName
-    this.githubId = githubId
+    this.currentUser = {
+      uniqueName,
+      displayName,
+      githubId
+    }
   }
 
-  @action setRoute = (input: CurrentUserStateSpecs) => {
-    this.uniqueName = input.uniqueName
-    this.displayName = input.displayName
-    this.githubId = input.githubId
+  @action setCurrentUser = (input: CurrentUserStateSpecs) => {
+    this.currentUser = {
+      uniqueName: input.uniqueName,
+      displayName: input.displayName,
+      githubId: input.githubId
+    }
+  }
+
+  @action signout = () => {
+    this.currentUser = undefined
   }
 }
 
