@@ -1,6 +1,6 @@
 import React from 'react'
 import { inject , observer } from 'mobx-react'
-import { CurrentUserStore } from './CurrentUserStore'
+import { CurrentUserSession } from './CurrentUserSession'
 import { Button } from '@material-ui/core'
 
 function UnauthorizedPage () {
@@ -13,15 +13,15 @@ function UnauthorizedPage () {
 }
 
 interface ContainerProps {
-  currentUserStore: CurrentUserStore
+  currentUserSession: CurrentUserSession
 }
 
 export function withAuthentication <OriginalProps extends {}> (WrappedComponent: React.ComponentType<OriginalProps & ContainerProps>) {
-  @inject('currentUserStore')
+  @inject('currentUserSession')
   @observer
   class AuthenticationComponent extends React.Component<OriginalProps & ContainerProps> {
     render (): JSX.Element {
-      const { currentUser } = this.props.currentUserStore
+      const { currentUser } = this.props.currentUserSession
       return (
         <>
           {currentUser == null

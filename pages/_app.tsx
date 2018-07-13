@@ -1,6 +1,6 @@
 import App, { Container } from 'next/app'
 import React from 'react'
-import { CurrentUserStore } from '../lib/CurrentUserStore'
+import { CurrentUserSession } from '../lib/CurrentUserSession'
 import { RouteState } from '../lib/RouteState'
 import applyMaterialUI from '../lib/applyMaterialUI'
 import initializeState from '../lib/initializeState'
@@ -10,14 +10,14 @@ import { PageContext } from '../lib/getPageContext'
 declare global {
   interface Window {
     route: RouteState
-    currentUserStore: CurrentUserStore
+    currentUserSession: CurrentUserSession
   }
 }
 
 interface MyAppProps {
   pageContext: PageContext
   route: RouteState
-  currentUserStore: CurrentUserStore
+  currentUserSession: CurrentUserSession
 }
 
 @applyMaterialUI

@@ -1,6 +1,6 @@
 import React from 'react'
 import { inject, observer } from 'mobx-react'
-import { CurrentUserStore } from '../lib/CurrentUserStore'
+import { CurrentUserSession } from '../lib/CurrentUserSession'
 import { RouteState } from '../lib/RouteState'
 import {
   AppBar,
@@ -19,7 +19,7 @@ import grey from '@material-ui/core/colors/grey'
 import Link from 'next/link'
 
 interface TopNavigatorProps {
-  currentUserStore?: CurrentUserStore
+  currentUserSession?: CurrentUserSession
   route?: RouteState
 }
 
@@ -46,7 +46,7 @@ interface TopNavigatorState {
 }
 
 @inject('route')
-@inject('currentUserStore')
+@inject('currentUserSession')
 @observer
 class TopNavigator extends React.Component<TopNavigatorProps & WithStyles<ClassNames>, TopNavigatorState> {
   constructor (props) {
@@ -67,11 +67,12 @@ class TopNavigator extends React.Component<TopNavigatorProps & WithStyles<ClassN
 
   public render () {
     const {
-      currentUserStore,
+      currentUserSession,
       classes
     } = this.props
+
     const { anchorEl } = this.state
-    const { currentUser } = currentUserStore
+    const { currentUser } = currentUserSession
     return (
       <AppBar
         color='primary'
