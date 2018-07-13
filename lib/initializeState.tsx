@@ -44,6 +44,7 @@ export default function initializeState (App: typeof MyApp): typeof App {
           query: createQueryMap(query),
           asPath
         })
+        route = window.route
       }
 
       return {
