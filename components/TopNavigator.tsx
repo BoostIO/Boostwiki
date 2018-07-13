@@ -16,6 +16,7 @@ import {
   WithStyles
 } from '@material-ui/core/styles'
 import grey from '@material-ui/core/colors/grey'
+import Link from 'next/link'
 
 interface TopNavigatorProps {
   currentUser?: CurrentUserState
@@ -27,7 +28,11 @@ const styles = {
     borderBottom: `1px solid ${grey[300]}`
   },
   flex: {
-    flex: 1
+    justifyContent: 'space-between'
+  },
+  title: {
+    color: 'black',
+    textDecoration: 'none'
   },
   avatorButton: {
     boxShadow: 'none'
@@ -72,10 +77,14 @@ class TopNavigator extends React.Component<TopNavigatorProps & WithStyles<ClassN
         position='static'
         elevation={0}
         className={classes.root}>
-        <Toolbar>
-          <Typography variant='title' color='inherit' className={classes.flex}>
-            Boostwiki
-          </Typography>
+        <Toolbar className={classes.flex}>
+          <Link href='/'>
+            <a className={classes.title}>
+              <Typography variant='title' color='inherit'>
+                Boostwiki
+              </Typography>
+            </a>
+          </Link>
           {currentUser == null
             ? <Button href='/auth/github' color='inherit'>Sign in</Button>
             : <>
