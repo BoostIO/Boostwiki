@@ -38,14 +38,10 @@ const ArticleCard: React.SFC<ArticleCardProps & WithStyles<ClassNames>> = ({ art
     </CardContent>
     <CardActions>
       <ButtonLink
-        linkProps={{
-          href: `/articles/show?keyword=${article.keyword}`,
-          as: `/w/${article.keyword}`
-        }}
-        buttonProps={{
-          size: 'small',
-          color: 'secondary'
-        }}
+        href={`/articles/show?keyword=${article.keyword}`}
+        as={`/w/${article.keyword}`}
+        size='small'
+        color='secondary'
       >
         Read
       </ButtonLink>

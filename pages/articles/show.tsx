@@ -56,14 +56,10 @@ class ArticleShow extends React.Component <ArticleShowProps & BundleContainerPro
            ? <Button href='/auth/github'>Sign In</Button>
            : (
             <ButtonLink
-              linkProps={{
-                href: `/articles/edit?keyword=${keyword}`,
-                as: `/w/${keyword}/edit`
-              }}
-              buttonProps={{
-                size: 'small',
-                color: 'secondary'
-              }}
+              href={`/articles/edit?keyword=${keyword}`}
+              as={`/w/${keyword}/edit`}
+              size='small'
+              color='secondary'
             >
               Edit
             </ButtonLink>
