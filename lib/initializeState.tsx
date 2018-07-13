@@ -5,7 +5,7 @@ import axios, { AxiosRequestConfig } from 'axios'
 import { CurrentUserStore } from './CurrentUserStore'
 import { RouteState } from './RouteState'
 import { createQueryMap } from './query'
-import MyApp from 'pages/_app'
+import MyApp from '../pages/_app'
 
 export default function initializeState (App: typeof MyApp): typeof App {
   return class extends App {
