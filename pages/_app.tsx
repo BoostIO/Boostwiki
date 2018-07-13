@@ -4,6 +4,7 @@ import { CurrentUserState } from '../lib/CurrentUserState'
 import { RouteState } from '../lib/RouteState'
 import applyMaterialUI from '../lib/applyMaterialUI'
 import initializeState from '../lib/initializeState'
+import DefaultLayout from '../components/DefaultLayout'
 import { PageContext } from '../lib/getPageContext'
 
 declare global {
@@ -13,10 +14,10 @@ declare global {
   }
 }
 
-export interface MyAppProps {
-  route: RouteState
-  currentUser: CurrentUserState,
+interface MyAppProps {
   pageContext: PageContext
+  route: RouteState
+  currentUser: CurrentUserState
 }
 
 @applyMaterialUI
@@ -31,7 +32,11 @@ export default class MyApp extends App<MyAppProps> {
 
     return (
       <Container>
-        <Component pageContext={pageContext} {...pageProps}/>
+        <DefaultLayout>
+          <Component
+            pageContext={pageContext}
+            {...pageProps}/>
+        </DefaultLayout>
       </Container>
     )
   }
