@@ -6,7 +6,7 @@ interface User {
   githubId: string
 }
 
-export class CurrentUserState {
+export class CurrentUserStore {
   @observable public currentUser: User
 
   constructor ({
@@ -30,7 +30,7 @@ export class CurrentUserState {
   }
 
   @action signout = () => {
-    this.currentUser = undefined
+    this.currentUser = null
   }
 }
 

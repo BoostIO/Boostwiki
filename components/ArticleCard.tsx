@@ -10,7 +10,7 @@ import {
   WithStyles
 } from '@material-ui/core/styles'
 import { Article } from '../lib/models'
-import ButtonLink from '../components/ButtonLink'
+import ButtonLink from './ButtonLink'
 
 interface ArticleCardProps {
   article: Article

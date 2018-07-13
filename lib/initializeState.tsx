@@ -1,11 +1,11 @@
 import React from 'react'
 import { Provider } from 'mobx-react'
-import isServer from '../lib/isServer'
+import isServer from './isServer'
 import axios, { AxiosRequestConfig } from 'axios'
-import { CurrentUserState } from '../lib/CurrentUserState'
-import { RouteState } from '../lib/RouteState'
-import { createQueryMap } from '../lib/query'
-import MyApp from '../pages/_app'
+import { CurrentUserStore } from './CurrentUserStore'
+import { RouteState } from './RouteState'
+import { createQueryMap } from './query'
+import MyApp from 'pages/_app'
 
 export default function initializeState (App: typeof MyApp): typeof App {
   return class extends App {
@@ -20,7 +20,7 @@ export default function initializeState (App: typeof MyApp): typeof App {
         pathname, query, asPath
       } = ctx
 
-      let currentUser
+      let currentUserStore: CurrentUserStore
       let route
       const options: AxiosRequestConfig = {}
       if (isServer()) {
@@ -30,7 +30,7 @@ export default function initializeState (App: typeof MyApp): typeof App {
         }))
 
         if (data.currentUser) {
-          currentUser = new CurrentUserState(data.currentUser)
+          currentUserStore = new CurrentUserStore(data.currentUser)
         }
 
         route = new RouteState({
@@ -50,20 +50,20 @@ export default function initializeState (App: typeof MyApp): typeof App {
       return {
         pageProps: await this.getPageProps(ctx, Component),
         pathname, query, asPath,
-        currentUser,
+        currentUserStore,
         route
       }
     }
 
     componentWillMount () {
       const {
-        currentUser,
+        currentUserStore,
         route
       } = this.props
 
       if (!isServer()) {
-        if (currentUser) {
-          window.currentUser = new CurrentUserState(currentUser)
+        if (currentUserStore) {
+          window.currentUserStore = new CurrentUserStore(currentUserStore.currentUser)
         }
         window.route = new RouteState(route)
       }
@@ -71,13 +71,13 @@ export default function initializeState (App: typeof MyApp): typeof App {
 
     render () {
       const {
-        currentUser,
+        currentUserStore,
         route
       } = this.props
 
       return (
         <Provider
-          currentUser={isServer() ? currentUser : window.currentUser}
+          currentUserStore={isServer() ? currentUserStore : window.currentUserStore}
           route={isServer() ? route : window.route}
         >
           <App {...this.props} />

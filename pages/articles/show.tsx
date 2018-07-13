@@ -2,13 +2,13 @@ import React from 'react'
 import { inject, observer } from 'mobx-react'
 import { Button, Typography } from '@material-ui/core'
 import { withPageBundle, BundleContainerProps } from '../../lib/withPageBundle'
-import { CurrentUserState } from 'lib/CurrentUserState'
-import { RouteState } from 'lib/RouteState'
+import { CurrentUserStore } from '../../lib/CurrentUserStore'
+import { RouteState } from '../../lib/RouteState'
 import { withStyles, WithStyles, Theme, createStyles } from '@material-ui/core/styles'
 import ButtonLink from '../../components/ButtonLink'
 
 interface ArticleShowProps {
-  currentUser: CurrentUserState
+  currentUserStore: CurrentUserStore
   route: RouteState
 }
 
@@ -30,12 +30,12 @@ const styles = ({ palette }: Theme) => createStyles({
 type ClassNames = typeof styles
 
 @inject('route')
-@inject('currentUser')
+@inject('currentUserStore')
 @observer
 class ArticleShow extends React.Component <ArticleShowProps & BundleContainerProps & WithStyles<ClassNames>> {
   render (): JSX.Element {
     const {
-      currentUser,
+      currentUserStore,
       pageProps,
       route,
       classes
@@ -43,6 +43,7 @@ class ArticleShow extends React.Component <ArticleShowProps & BundleContainerPro
 
     const keyword = route.query.get('keyword')
     const { article } = pageProps
+    const { currentUser } = currentUserStore
 
     return (
       <main className={classes.root}>
