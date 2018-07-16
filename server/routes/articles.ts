@@ -1,6 +1,6 @@
 import Router from 'express-promise-router'
 import mongoose from 'mongoose'
-import createArticle from '../operations/articles/createArticle'
+import pushNewArticle from '../operations/articles/pushNewArticle'
 import createCommit from '../operations/commit/createCommit'
 import addCommitToArticle from '../operations/articles/addCommitToArticle'
 import Article from '../models/Article'
@@ -25,19 +25,10 @@ router.post('/', async (req, res) => {
   const { keyword, content } = value
   const user = req.user
 
-  const newArticle = await createArticle({
-    keyword
-  })
-
-  const commit = await createCommit({
+  const article = await pushNewArticle({
+    keyword,
     content,
-    user: user._id,
-    article: newArticle._id
-  })
-
-  const article = await addCommitToArticle({
-    article: newArticle,
-    commit
+    user: user._id
   })
 
   res.json({
