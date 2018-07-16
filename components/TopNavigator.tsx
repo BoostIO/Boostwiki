@@ -21,6 +21,7 @@ import {
 import { Search } from '@material-ui/icons'
 import grey from '@material-ui/core/colors/grey'
 import Link from 'next/link'
+import Router from 'next/router'
 
 interface TopNavigatorProps {
   session?: Session
@@ -70,7 +71,8 @@ class TopNavigator extends React.Component<TopNavigatorProps & WithStyles<ClassN
 
   handleSubmitSearch = () => {
     const { searchContent } = this.state
-    console.log(`Submit ${searchContent} !`)
+    Router.push(`/articles/show?keyword=${searchContent}`, `/w/${searchContent}`)
+      .catch(error => console.error(error))
   }
 
   handleAvatorClick = event => {
