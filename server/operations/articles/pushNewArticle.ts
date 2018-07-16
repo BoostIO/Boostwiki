@@ -1,26 +1,26 @@
-import mongoose from 'mongoose'
 import Article from '../../models/Article'
+import mongoose from 'mongoose'
+import createArticle from '../../operations/articles/createArticle'
 import createCommit from '../../operations/commit/createCommit'
 import addCommitToArticle from '../../operations/articles/addCommitToArticle'
 
-interface UpdateArticleParams {
+interface PushNewArticleParams {
   keyword: string
   content: string
   user: mongoose.Types.ObjectId
 }
 
-export default async function updateArticle (params: UpdateArticleParams): Promise<Article> {
+export default async function pushNewArticle (params: PushNewArticleParams): Promise<Article> {
   const { keyword, content, user } = params
 
-  const baseArticle = await Article.findOne({
+  const baseArticle = await createArticle({
     keyword
-  }).exec()
+  })
 
   const commit = await createCommit({
     content,
     user,
-    article: baseArticle._id,
-    parentCommit: baseArticle.headCommit as mongoose.Types.ObjectId
+    article: baseArticle._id
   })
 
   const article = await addCommitToArticle({

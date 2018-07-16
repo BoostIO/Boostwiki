@@ -1,7 +1,6 @@
 import Router from 'express-promise-router'
-import createArticle from '../operations/articles/createArticle'
+import pushNewArticle from '../operations/articles/pushNewArticle'
 import updateArticle from '../operations/articles/updateArticle'
-import Article from '../models/Article'
 import Joi from 'joi'
 
 const router = Router()
@@ -23,7 +22,7 @@ router.post('/', async (req, res) => {
   const { keyword, content } = value
   const user = req.user
 
-  const article = await createArticle({
+  const article = await pushNewArticle({
     keyword,
     content,
     user: user._id
@@ -41,13 +40,9 @@ router.put('/', async (req, res) => {
   const { keyword, content } = value
   const user = req.user
 
-  const baseArticle = await Article.findOne({
-    keyword
-  }).exec()
-
-  const article = await updateArticle({
+  const article = updateArticle({
+    keyword,
     content,
-    article: baseArticle,
     user: user._id
   })
 
