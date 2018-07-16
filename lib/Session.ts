@@ -6,7 +6,7 @@ interface User {
   githubId: string
 }
 
-export class CurrentUserSession {
+export class Session {
   @observable public currentUser: User
 
   constructor ({

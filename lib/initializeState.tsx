@@ -2,7 +2,7 @@ import React from 'react'
 import { Provider } from 'mobx-react'
 import isServer from './isServer'
 import axios, { AxiosRequestConfig } from 'axios'
-import { CurrentUserSession } from './CurrentUserSession'
+import { Session } from './Session'
 import { RouteState } from './RouteState'
 import { createQueryMap } from './query'
 import MyApp from '../pages/_app'
@@ -20,7 +20,7 @@ export default function initializeState (App: typeof MyApp): typeof App {
         pathname, query, asPath
       } = ctx
 
-      let currentUserSession: CurrentUserSession
+      let session: Session
       let route
       const options: AxiosRequestConfig = {}
       if (isServer()) {
@@ -30,7 +30,7 @@ export default function initializeState (App: typeof MyApp): typeof App {
         }))
 
         if (data.currentUser) {
-          currentUserSession = new CurrentUserSession(data.currentUser)
+          session = new Session(data.currentUser)
         }
 
         route = new RouteState({
@@ -50,20 +50,20 @@ export default function initializeState (App: typeof MyApp): typeof App {
       return {
         pageProps: await this.getPageProps(ctx, Component),
         pathname, query, asPath,
-        currentUserSession,
+        session,
         route
       }
     }
 
     componentWillMount () {
       const {
-        currentUserSession,
+        session,
         route
       } = this.props
 
       if (!isServer()) {
-        if (currentUserSession) {
-          window.currentUserSession = new CurrentUserSession(currentUserSession.currentUser)
+        if (session) {
+          window.session = new Session(session.currentUser)
         }
         window.route = new RouteState(route)
       }
@@ -71,13 +71,13 @@ export default function initializeState (App: typeof MyApp): typeof App {
 
     render () {
       const {
-        currentUserSession,
+        session,
         route
       } = this.props
 
       return (
         <Provider
-          currentUserSession={isServer() ? currentUserSession : window.currentUserSession}
+          session={isServer() ? session : window.session}
           route={isServer() ? route : window.route}
         >
           <App {...this.props} />
