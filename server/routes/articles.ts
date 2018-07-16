@@ -1,6 +1,8 @@
 import Router from 'express-promise-router'
+import mongoose from 'mongoose'
 import createArticle from '../operations/articles/createArticle'
-import updateArticle from '../operations/articles/updateArticle'
+import createCommit from '../operations/commit/createCommit'
+import addCommitToArticle from '../operations/articles/addCommitToArticle'
 import Article from '../models/Article'
 import Joi from 'joi'
 
@@ -23,10 +25,19 @@ router.post('/', async (req, res) => {
   const { keyword, content } = value
   const user = req.user
 
-  const article = await createArticle({
-    keyword,
+  const newArticle = await createArticle({
+    keyword
+  })
+
+  const commit = await createCommit({
     content,
-    user: user._id
+    user: user._id,
+    article: newArticle._id
+  })
+
+  const article = await addCommitToArticle({
+    article: newArticle,
+    commit
   })
 
   res.json({
@@ -45,10 +56,16 @@ router.put('/', async (req, res) => {
     keyword
   }).exec()
 
-  const article = await updateArticle({
+  const commit = await createCommit({
     content,
+    user: user._id,
+    article: baseArticle._id,
+    parentCommit: baseArticle.headCommit as mongoose.Types.ObjectId
+  })
+
+  const article = await addCommitToArticle({
     article: baseArticle,
-    user: user._id
+    commit
   })
 
   res.json({
