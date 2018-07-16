@@ -9,12 +9,16 @@ import {
   Button,
   Toolbar,
   Menu,
-  MenuItem
+  MenuItem,
+  Input,
+  InputAdornment,
+  FormControl
 } from '@material-ui/core'
 import {
   withStyles,
   WithStyles
 } from '@material-ui/core/styles'
+import { Search } from '@material-ui/icons'
 import grey from '@material-ui/core/colors/grey'
 import Link from 'next/link'
 
@@ -36,6 +40,9 @@ const styles = {
   },
   avatorButton: {
     boxShadow: 'none'
+  },
+  formCtrl: {
+    marginRight: 12
   }
 }
 
@@ -89,7 +96,14 @@ class TopNavigator extends React.Component<TopNavigatorProps & WithStyles<ClassN
           </Link>
           {currentUser == null
             ? <Button href='/auth/github' color='inherit'>Sign in</Button>
-            : <>
+            : <div>
+              <FormControl className={classes.formCtrl}>
+                <Input startAdornment={
+                  <InputAdornment position='start'>
+                    <Search />
+                  </InputAdornment>
+                } />
+              </FormControl>
               <Button
                 onClick={this.handleAvatorClick}
                 mini
@@ -110,7 +124,7 @@ class TopNavigator extends React.Component<TopNavigatorProps & WithStyles<ClassN
                 <MenuItem>Profile</MenuItem>
                 <MenuItem>Sign Out</MenuItem>
               </Menu>
-            </>
+            </div>
           }
         </Toolbar>
       </AppBar>
