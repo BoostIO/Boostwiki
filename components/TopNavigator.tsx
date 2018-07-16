@@ -22,6 +22,7 @@ import { Search } from '@material-ui/icons'
 import grey from '@material-ui/core/colors/grey'
 import Link from 'next/link'
 import Router from 'next/router'
+import MenuItemLink from '../components/MenuItemLink'
 
 interface TopNavigatorProps {
   session?: Session
@@ -146,7 +147,9 @@ class TopNavigator extends React.Component<TopNavigatorProps & WithStyles<ClassN
                 open={Boolean(anchorEl)}
                 onClose={this.handleClose}
               >
-                <MenuItem>Profile</MenuItem>
+                <MenuItemLink href={`/articles/show?keyword=hoge`} as={`/w/hoge`}>
+                  Profile
+                </MenuItemLink>
                 <MenuItem>Sign Out</MenuItem>
               </Menu>
             </div>
