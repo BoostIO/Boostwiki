@@ -1,10 +1,10 @@
 import React from 'react'
 import { Provider } from 'mobx-react'
-import isServer from '../lib/isServer'
+import isServer from './isServer'
 import axios, { AxiosRequestConfig } from 'axios'
-import { CurrentUserState } from '../lib/CurrentUserState'
-import { RouteState } from '../lib/RouteState'
-import { createQueryMap } from '../lib/query'
+import { Session } from './Session'
+import { RouteState } from './RouteState'
+import { createQueryMap } from './query'
 import MyApp from '../pages/_app'
 
 export default function initializeState (App: typeof MyApp): typeof App {
@@ -20,7 +20,7 @@ export default function initializeState (App: typeof MyApp): typeof App {
         pathname, query, asPath
       } = ctx
 
-      let currentUser
+      let session: Session
       let route
       const options: AxiosRequestConfig = {}
       if (isServer()) {
@@ -30,7 +30,7 @@ export default function initializeState (App: typeof MyApp): typeof App {
         }))
 
         if (data.currentUser) {
-          currentUser = new CurrentUserState(data.currentUser)
+          session = new Session(data.currentUser)
         }
 
         route = new RouteState({
@@ -50,20 +50,20 @@ export default function initializeState (App: typeof MyApp): typeof App {
       return {
         pageProps: await this.getPageProps(ctx, Component),
         pathname, query, asPath,
-        currentUser,
+        session,
         route
       }
     }
 
     componentWillMount () {
       const {
-        currentUser,
+        session,
         route
       } = this.props
 
       if (!isServer()) {
-        if (currentUser) {
-          window.currentUser = new CurrentUserState(currentUser)
+        if (session) {
+          window.session = new Session(session.currentUser)
         }
         window.route = new RouteState(route)
       }
@@ -71,13 +71,13 @@ export default function initializeState (App: typeof MyApp): typeof App {
 
     render () {
       const {
-        currentUser,
+        session,
         route
       } = this.props
 
       return (
         <Provider
-          currentUser={isServer() ? currentUser : window.currentUser}
+          session={isServer() ? session : window.session}
           route={isServer() ? route : window.route}
         >
           <App {...this.props} />

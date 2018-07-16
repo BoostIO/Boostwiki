@@ -1,6 +1,6 @@
 import React from 'react'
 import MyApp from '../pages/_app'
-import getPageContext from '../lib/getPageContext'
+import getPageContext from './getPageContext'
 import { CssBaseline } from '@material-ui/core'
 import { MuiThemeProvider } from '@material-ui/core/styles'
 import JssProvider from 'react-jss/lib/JssProvider'
