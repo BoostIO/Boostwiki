@@ -23,7 +23,8 @@ interface UsersShowProps {
 const styles = ({ palette }: Theme) => createStyles({
   root: {
     width: 1350,
-    margin: '0 auto'
+    margin: '0 auto',
+    padding: '0 30px'
   },
   anchor: {
     color: palette.secondary.main
