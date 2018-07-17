@@ -2,6 +2,7 @@ import React from 'react'
 import { User, Article } from '../../lib/models'
 import { withPageBundle } from '../../lib/withPageBundle'
 import { Avatar } from '@material-ui/core'
+import Link from 'next/link'
 
 interface UsersShowProps {
   pageProps: {
@@ -21,7 +22,13 @@ class UsersShow extends React.Component<UsersShowProps> {
        <Avatar src={user.photo} />
        { articles.length > 0
         ? articles.map(article => (
-          <p>{article.keyword}</p>
+          <p key={article._id}>
+            <Link href={`/articles/show?keyword=${article.keyword}`} as={`/w/${article.keyword}`}>
+              <a>
+                {article.keyword}
+              </a>
+            </Link>
+          </p>
         ))
         : <p>There is no article.</p>}
       </>
