@@ -52,7 +52,11 @@ class UsersShow extends React.Component<UsersShowProps & WithStyles<ClassNames>>
           <Avatar src={user.photo} className={classes.avatar}/>
           <div>
             <Typography variant='display1'>{user.displayName}</Typography>
-            <Typography variant='headline'>{user.uniqueName}</Typography>
+            <Typography variant='headline'>
+              <a href={`https://github.com/${user.uniqueName}`} className={classes.anchor}>
+                {user.uniqueName}
+              </a>
+            </Typography>
           </div>
         </div>
         { articles.length > 0
