@@ -9,14 +9,19 @@ import {
   Button,
   Toolbar,
   Menu,
-  MenuItem
+  MenuItem,
+  Input,
+  InputAdornment,
+  FormControl
 } from '@material-ui/core'
 import {
   withStyles,
   WithStyles
 } from '@material-ui/core/styles'
+import { Search } from '@material-ui/icons'
 import grey from '@material-ui/core/colors/grey'
 import Link from 'next/link'
+import Router from 'next/router'
 
 interface TopNavigatorProps {
   session?: Session
@@ -36,6 +41,9 @@ const styles = {
   },
   avatorButton: {
     boxShadow: 'none'
+  },
+  formCtrl: {
+    marginRight: 12
   }
 }
 
@@ -43,6 +51,7 @@ type ClassNames = keyof typeof styles
 
 interface TopNavigatorState {
   anchorEl: HTMLAnchorElement
+  searchContent: string
 }
 
 @inject('route')
@@ -53,8 +62,17 @@ class TopNavigator extends React.Component<TopNavigatorProps & WithStyles<ClassN
     super(props)
 
     this.state = {
-      anchorEl: null
+      anchorEl: null,
+      searchContent: ''
     }
+  }
+
+  setSearchContent = searchContent => this.setState({ searchContent })
+
+  handleSubmitSearch = () => {
+    const { searchContent } = this.state
+    Router.push(`/articles/show?keyword=${searchContent}`, `/w/${searchContent}`)
+      .catch(error => console.error(error))
   }
 
   handleAvatorClick = event => {
@@ -71,8 +89,13 @@ class TopNavigator extends React.Component<TopNavigatorProps & WithStyles<ClassN
       classes
     } = this.props
 
-    const { anchorEl } = this.state
     const { currentUser } = session
+
+    const {
+      anchorEl,
+      searchContent
+    } = this.state
+
     return (
       <AppBar
         color='primary'
@@ -89,7 +112,23 @@ class TopNavigator extends React.Component<TopNavigatorProps & WithStyles<ClassN
           </Link>
           {currentUser == null
             ? <Button href='/auth/github' color='inherit'>Sign in</Button>
-            : <>
+            : <div>
+              <FormControl className={classes.formCtrl}>
+                <Input
+                  onKeyPress={(e: React.KeyboardEvent<HTMLDivElement>) => {
+                    if (e.key === 'Enter') {
+                      this.handleSubmitSearch()
+                    }
+                  }}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => this.setSearchContent(e.target.value)}
+                  value={searchContent}
+                  startAdornment={
+                    <InputAdornment position='start'>
+                      <Search />
+                    </InputAdornment>
+                  }
+                />
+              </FormControl>
               <Button
                 onClick={this.handleAvatorClick}
                 mini
@@ -110,7 +149,7 @@ class TopNavigator extends React.Component<TopNavigatorProps & WithStyles<ClassN
                 <MenuItem>Profile</MenuItem>
                 <MenuItem>Sign Out</MenuItem>
               </Menu>
-            </>
+            </div>
           }
         </Toolbar>
       </AppBar>
