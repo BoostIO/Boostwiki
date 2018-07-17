@@ -152,7 +152,7 @@ class TopNavigator extends React.Component<TopNavigatorProps & WithStyles<ClassN
                 open={Boolean(anchorEl)}
                 onClose={this.handleClose}
               >
-                <MenuItemLink href={`/articles/show?keyword=hoge`} as={`/w/hoge`}>
+                <MenuItemLink href={`/users/show?uniqueName=${currentUser.uniqueName}`} as={`/users/${currentUser.uniqueName}`}>
                   Profile
                 </MenuItemLink>
                 <MenuItem onClick={this.handleClickSignOutButton}>Sign Out</MenuItem>
