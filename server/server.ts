@@ -44,6 +44,10 @@ nextApp.prepare()
       nextApp.render(req, res, '/articles/edit', Object.assign(req.params, req.query))
     })
 
+    expressApp.get('/users/:uniqueName', (req, res) => {
+      nextApp.render(req, res, '/users/show', Object.assign(req.params, req.query))
+    })
+
     expressApp.get('*', (req, res) => {
       return handle(req, res)
     })
