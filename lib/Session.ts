@@ -9,15 +9,16 @@ interface User {
 export class Session {
   @observable public currentUser: User
 
-  constructor ({
-    uniqueName,
-    displayName,
-    githubId
-  }: CurrentUserStateSpecs) {
-    this.currentUser = {
-      uniqueName,
-      displayName,
-      githubId
+  constructor (currentUser: CurrentUserStateSpecs) {
+    if (currentUser == null) {
+      this.currentUser = null
+    } else {
+      const { githubId, displayName, uniqueName } = currentUser
+      this.currentUser = {
+        githubId,
+        displayName,
+        uniqueName
+      }
     }
   }
 
