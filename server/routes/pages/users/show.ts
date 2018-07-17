@@ -6,7 +6,7 @@ export default async function (req, res, next) {
   const user = await User.findOne({ uniqueName }).exec()
 
   const articles =
-    (await Commit.find({ user }))
+    (await Commit.find({ user }).populate('article').exec())
     .map(commit => commit.article)
     .filter((article, index, self) => (
       index === self.findIndex(a => (
