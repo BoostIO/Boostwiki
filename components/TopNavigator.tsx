@@ -84,6 +84,11 @@ class TopNavigator extends React.Component<TopNavigatorProps & WithStyles<ClassN
     this.setState({ anchorEl: null })
   }
 
+  handleClickSignOutButton = () => {
+    const { session } = this.props
+    session.signout()
+  }
+
   public render () {
     const {
       session,
@@ -150,7 +155,7 @@ class TopNavigator extends React.Component<TopNavigatorProps & WithStyles<ClassN
                 <MenuItemLink href={`/articles/show?keyword=hoge`} as={`/w/hoge`}>
                   Profile
                 </MenuItemLink>
-                <MenuItem>Sign Out</MenuItem>
+                <MenuItem onClick={this.handleClickSignOutButton}>Sign Out</MenuItem>
               </Menu>
             </div>
           }
