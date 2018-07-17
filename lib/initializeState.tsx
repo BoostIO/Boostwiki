@@ -31,6 +31,8 @@ export default function initializeState (App: typeof MyApp): typeof App {
 
         if (data.currentUser) {
           session = new Session(data.currentUser)
+        } else {
+          session = new Session(null)
         }
 
         route = new RouteState({
