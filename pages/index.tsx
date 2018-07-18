@@ -1,20 +1,23 @@
 import React from 'react'
 import { withPageBundle } from '../lib/withPageBundle'
 import { Article } from '../lib/models'
-import ArticleCard from '../components/ArticleCard'
-import { withStyles, WithStyles } from '@material-ui/core/styles'
-import { Grid } from '@material-ui/core'
+import { withStyles, WithStyles, Theme, createStyles } from '@material-ui/core/styles'
+import { Typography } from '@material-ui/core'
+import Link from 'next/link'
 
-const styles = {
+const styles = ({ palette }: Theme) => createStyles({
   root: {
     maxWidth: 1350,
     marginRight: 'auto',
     marginLeft: 'auto',
-    paddingTop: 16
+    padding: 16
+  },
+  anchor: {
+    color: palette.secondary.main
   }
-}
+})
 
-type ClassNames = keyof typeof styles
+type ClassNames = typeof styles
 
 interface TopPageProps {
   pageProps: {
@@ -25,17 +28,22 @@ interface TopPageProps {
 const TopComponent: React.SFC<TopPageProps & WithStyles<ClassNames>> = ({ pageProps, classes }) => {
   const { articles } = pageProps
   return (
-    <Grid container className={classes.root} spacing={16}>
+    <div className={classes.root}>
       {articles.length > 0
-        ? articles.map(article => (
-          <Grid item key={article._id} xs={3}>
-            <ArticleCard
-              article={article}
-            />
-          </Grid>
-        ))
+        ? <>
+          <Typography variant='title'>Latest articles</Typography>
+          {articles.map(article => (
+            <Typography variant='subheading' key={article._id}>
+              <Link href={`/articles/show?keyword=${article.keyword}`} as={`/w/${article.keyword}`}>
+                <a className={classes.anchor}>
+                  {article.keyword}
+                </a>
+              </Link>
+            </Typography>
+          ))}
+          </>
         : <p>There is no article.</p>}
-    </Grid>
+    </div>
   )
 }
 
