@@ -1,6 +1,6 @@
 import chai from 'chai'
 import express from 'express'
-import app from '../../app'
+import appRouter from '../../appRouter'
 import User from '../../models/User'
 import { createUser, createArticle, tearDown } from '../helpers/dummy'
 
@@ -11,7 +11,7 @@ describe('/api/articles', () => {
     user = await createUser()
 
     const expressApp = express()
-    expressApp.use(app)
+    expressApp.use(appRouter)
     agent = chai.request.agent(expressApp)
   })
 

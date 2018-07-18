@@ -3,7 +3,7 @@ import express from 'express'
 import { useStaticRendering } from 'mobx-react'
 import next from 'next'
 import logger from 'morgan'
-import app from './app'
+import appRouter from './appRouter'
 
 const dev = process.env.NODE_ENV !== 'production'
 
@@ -34,7 +34,7 @@ nextApp.prepare()
       : 'common'
     ))
 
-    expressApp.use(app)
+    expressApp.use(appRouter)
 
     expressApp.get('/w/:keyword', (req, res) => {
       nextApp.render(req, res, '/articles/show', Object.assign(req.params, req.query))
