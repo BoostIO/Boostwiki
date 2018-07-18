@@ -2,6 +2,7 @@ import Router from 'express-promise-router'
 import createArticle from '../operations/articles/createArticle'
 import updateArticle from '../operations/articles/updateArticle'
 import Article from '../models/Article'
+import requireAuth from '../middlewares/requireAuth'
 import Joi from 'joi'
 
 const router = Router()
@@ -16,7 +17,7 @@ interface ArticleSchema {
   content: string
 }
 
-router.post('/', async (req, res) => {
+router.post('/', requireAuth(), async (req, res) => {
   const { error, value } = Joi.validate<ArticleSchema>(req.body, articleSchemea)
   if (error) throw error
 
@@ -34,7 +35,7 @@ router.post('/', async (req, res) => {
   })
 })
 
-router.put('/', async (req, res) => {
+router.put('/', requireAuth(), async (req, res) => {
   const { error, value } = Joi.validate<ArticleSchema>(req.body, articleSchemea)
   if (error) throw error
 
