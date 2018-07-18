@@ -13,9 +13,9 @@ export interface PageContext {
 const theme = createMuiTheme({
   palette: {
     primary: {
-      light: grey[50],
-      main: grey[100],
-      dark: grey[500]
+      light: '#fff',
+      main: '#fff',
+      dark: grey[300]
     },
     secondary: {
       light: red[300],

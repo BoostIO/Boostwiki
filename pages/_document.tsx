@@ -47,7 +47,9 @@ export default class MyDocumnet extends Document {
             href='https://fonts.googleapis.com/css?family=Roboto:300,400,500'
           />
         </Head>
-        <body>
+        <body style={{
+          backgroundColor: '#fff'
+        }}>
           <Main />
           <NextScript />
         </body>
