@@ -14,7 +14,7 @@ describe('/api/pages/index', () => {
 
   it('response latest 20 articles', async () => {
     await Promise.all(
-      range(20).map(i => createArticle())
+      range(25).map(i => createArticle())
     )
 
     const res = await agent
