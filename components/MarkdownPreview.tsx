@@ -22,6 +22,8 @@ const styles = ({ palette }: Theme) => createStyles({
 type ClassNames = typeof styles
 
 class MarkdownPreview extends React.Component<MarkdownPreviewProps & WithStyles<ClassNames>> {
+  static defaultProps: MarkdownPreviewProps = { content: '' }
+
   render () {
     const { content, className, classes } = this.props
     const renderer = new marked.Renderer()
