@@ -1,6 +1,7 @@
 import React from 'react'
 import marked from 'marked'
 import classnames from 'classnames'
+import Highlighter from './Highlighter'
 import {
   withStyles,
   WithStyles,
@@ -16,6 +17,9 @@ interface MarkdownPreviewProps {
 const styles = ({ palette }: Theme) => createStyles({
   anchor: {
     color: palette.secondary.main
+  },
+  code: {
+    fontFamily: '"Roboto Mono", monospace'
   }
 })
 
@@ -30,9 +34,12 @@ class MarkdownPreview extends React.Component<MarkdownPreviewProps & WithStyles<
     renderer.link = (href, title, text) => (
       `<a target="_blank" rel="noopener noreferrer" href="${href}" title="${title}" class="${classnames(classes.anchor)}">${text}</a>`
     )
+    renderer.code = (code, lang) => (
+      `<pre><code class="${classnames(classes.code)}">${code}</code></pre>`
+    )
     const html = marked(content, { renderer })
     return (
-      <div className={className} dangerouslySetInnerHTML={{ __html: html }} />
+      <Highlighter content={html} className={className} />
     )
   }
 }

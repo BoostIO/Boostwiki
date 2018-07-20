@@ -6,8 +6,8 @@ import { Session } from '../../lib/Session'
 import { RouteState } from '../../lib/RouteState'
 import { withStyles, WithStyles, Theme, createStyles } from '@material-ui/core/styles'
 import ButtonLink from '../../components/ButtonLink'
-import MarkdownPreview from '../../components/MarkdownPreview'
 import { Article } from '../../lib/models'
+import MarkdownPreview from '../../components/MarkdownPreview'
 
 interface ArticleShowProps {
   session: Session
