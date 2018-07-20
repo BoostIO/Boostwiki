@@ -75,7 +75,9 @@ class UsersShow extends React.Component<UsersShowProps & WithStyles<ClassNames>>
                 )
               })}
           </>
-          : <Typography variant='subheading'>There is no article.</Typography>}
+          : <Typography variant='subheading'>
+            {`${user.displayName} has not commited yet.`}
+          </Typography>}
       </div>
     )
   }
