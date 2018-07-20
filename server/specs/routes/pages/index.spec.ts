@@ -2,7 +2,6 @@ import chai from 'chai'
 import express from 'express'
 import appRouter from '../../../appRouter'
 import { createArticle, tearDown } from '../../helpers/dummy'
-import range from 'lodash/range'
 
 describe('/api/pages/index', () => {
   let agent
@@ -14,7 +13,7 @@ describe('/api/pages/index', () => {
 
   it('response latest 20 articles', async () => {
     await Promise.all(
-      range(25).map(i => createArticle())
+      [...new Array(25)].map((v, i) => i).map(i => createArticle())
     )
 
     const res = await agent

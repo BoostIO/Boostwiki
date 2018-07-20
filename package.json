@@ -29,7 +29,6 @@
     "express-session": "^1.15.6",
     "joi": "^13.4.0",
     "jss": "^9.8.7",
-    "lodash": "^4.17.10",
     "mobx": "^4.3.1",
     "mobx-react": "^5.2.3",
     "mongoose": "^5.1.7",
