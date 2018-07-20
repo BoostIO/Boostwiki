@@ -17,7 +17,7 @@ interface ArticleSchema {
   content: string
 }
 
-router.post('/', requireAuth(), async (req, res) => {
+router.post('/', requireAuth, async (req, res) => {
   const { error, value } = Joi.validate<ArticleSchema>(req.body, articleSchemea)
   if (error) throw error
 
@@ -35,7 +35,7 @@ router.post('/', requireAuth(), async (req, res) => {
   })
 })
 
-router.put('/', requireAuth(), async (req, res) => {
+router.put('/', requireAuth, async (req, res) => {
   const { error, value } = Joi.validate<ArticleSchema>(req.body, articleSchemea)
   if (error) throw error
 
