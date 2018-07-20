@@ -1,5 +1,5 @@
 import React from 'react'
-import { User, Article } from '../../lib/models'
+import { User, Commit } from '../../lib/models'
 import { withPageBundle } from '../../lib/withPageBundle'
 import {
   Avatar,
@@ -16,7 +16,7 @@ import {
 interface UsersShowProps {
   pageProps: {
     user: User,
-    articles: Article[]
+    commits: Commit[]
   }
 }
 
@@ -45,7 +45,7 @@ type ClassNames = typeof styles
 class UsersShow extends React.Component<UsersShowProps & WithStyles<ClassNames>> {
   render () {
     const { pageProps, classes } = this.props
-    const { user, articles } = pageProps
+    const { user, commits } = pageProps
     return (
       <div className={classes.root}>
         <div className={classes.userInfo}>
@@ -59,18 +59,21 @@ class UsersShow extends React.Component<UsersShowProps & WithStyles<ClassNames>>
             </Typography>
           </div>
         </div>
-        { articles.length > 0
+        { commits.length > 0
           ? <>
               <Typography variant='title'>commited articles</Typography>
-              {articles.map(article => (
-                <Typography key={article._id} variant='subheading'>
-                  <Link href={`/articles/show?keyword=${article.keyword}`} as={`/w/${article.keyword}`}>
-                    <a className={classes.anchor}>
-                      {article.keyword}
-                    </a>
-                  </Link>
-                </Typography>
-              ))}
+              {commits.map(commit => {
+                const { keyword } = commit.article
+                return (
+                  <Typography key={commit._id} variant='subheading'>
+                    <Link href={`/articles/show?keyword=${keyword}`} as={`/w/${keyword}`}>
+                      <a className={classes.anchor}>
+                        {keyword}
+                      </a>
+                    </Link>
+                  </Typography>
+                )
+              })}
           </>
           : <Typography variant='subheading'>There is no article.</Typography>}
       </div>
