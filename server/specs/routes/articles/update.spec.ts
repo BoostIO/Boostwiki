@@ -16,10 +16,12 @@ describe('PUT /api/articles', () => {
   })
 
   it('response updated article', async () => {
+    // Give
     await agent.get(`/test/signin/${user._id}`)
 
     await createArticle({ keyword: 'test_keyword' })
 
+    // When
     const res = await agent
       .put('/api/articles')
       .send({
@@ -27,6 +29,7 @@ describe('PUT /api/articles', () => {
         content: 'update content'
       })
 
+    // Then
     expect(res.status).toBe(200)
     expect(res.body).toMatchObject({
       article: {

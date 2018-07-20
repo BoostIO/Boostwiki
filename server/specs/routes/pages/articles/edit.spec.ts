@@ -12,17 +12,20 @@ describe('/api/pages/articles/edit', () => {
   })
 
   it('response an article', async () => {
+    // Give
     await createArticle({
       keyword: 'test_keyword',
       content: 'test content'
     })
 
+    // When
     const res = await agent
       .get('/api/pages/articles/show')
       .query({
         keyword: 'test_keyword'
       })
 
+    // Then
     expect(res.status).toBe(200)
     expect(res.body).toMatchObject({
       article: {

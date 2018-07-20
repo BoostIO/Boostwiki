@@ -16,8 +16,10 @@ describe('POST /api/articles', () => {
   })
 
   it('response new article.', async () => {
+    // Give
     await agent.get(`/test/signin/${user._id}`)
 
+    // When
     const res = await agent
       .post('/api/articles')
       .send({
@@ -25,6 +27,7 @@ describe('POST /api/articles', () => {
         content: 'test content'
       })
 
+    // Then
     expect(res.status).toBe(200)
     expect(res.body).toMatchObject({
       article: {
