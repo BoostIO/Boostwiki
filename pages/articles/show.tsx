@@ -1,15 +1,20 @@
 import React from 'react'
 import { inject, observer } from 'mobx-react'
 import { Button, Typography } from '@material-ui/core'
-import { withPageBundle, BundleContainerProps } from '../../lib/withPageBundle'
+import { withPageBundle } from '../../lib/withPageBundle'
 import { Session } from '../../lib/Session'
 import { RouteState } from '../../lib/RouteState'
 import { withStyles, WithStyles, Theme, createStyles } from '@material-ui/core/styles'
 import ButtonLink from '../../components/ButtonLink'
+import MarkdownPreview from '../../components/MarkdownPreview'
+import { Article } from '../../lib/models'
 
 interface ArticleShowProps {
   session: Session
   route: RouteState
+  pageProps: {
+    article: Article
+  }
 }
 
 const styles = ({ palette }: Theme) => createStyles({
@@ -32,7 +37,7 @@ type ClassNames = typeof styles
 @inject('route')
 @inject('session')
 @observer
-class ArticleShow extends React.Component <ArticleShowProps & BundleContainerProps & WithStyles<ClassNames>> {
+class ArticleShow extends React.Component <ArticleShowProps & WithStyles<ClassNames>> {
   render (): JSX.Element {
     const {
       session,
@@ -51,7 +56,8 @@ class ArticleShow extends React.Component <ArticleShowProps & BundleContainerPro
 
         {article == null
           ? <p>{`The content of "${keyword}" does not exist.`}</p>
-          : <p>{article.headCommit.content}</p>}
+          : <MarkdownPreview content={article.headCommit.content} />
+        }
 
         {currentUser == null
            ? <Button href='/auth/github'>Sign In</Button>

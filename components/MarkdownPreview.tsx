@@ -3,7 +3,7 @@ import marked from 'marked'
 
 interface MarkdownPreviewProps {
   content: string
-  className: string
+  className?: string
 }
 
 export default class MarkdownPreview extends React.Component<MarkdownPreviewProps> {
