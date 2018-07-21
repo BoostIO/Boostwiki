@@ -6,11 +6,13 @@ import applyMaterialUI from '../lib/applyMaterialUI'
 import initializeState from '../lib/initializeState'
 import DefaultLayout from '../components/DefaultLayout'
 import { PageContext } from '../lib/getPageContext'
+import CodeMirror from 'codemirror'
 
 declare global {
   interface Window {
     route: RouteState
     session: Session
+    CodeMirror: typeof CodeMirror
   }
 }
 
