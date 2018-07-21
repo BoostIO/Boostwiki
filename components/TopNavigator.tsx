@@ -22,6 +22,7 @@ import { Search } from '@material-ui/icons'
 import grey from '@material-ui/core/colors/grey'
 import Link from 'next/link'
 import Router from 'next/router'
+import MenuItemLink from '../components/MenuItemLink'
 
 interface TopNavigatorProps {
   session?: Session
@@ -81,6 +82,11 @@ class TopNavigator extends React.Component<TopNavigatorProps & WithStyles<ClassN
 
   handleClose = () => {
     this.setState({ anchorEl: null })
+  }
+
+  handleClickSignOutButton = () => {
+    const { session } = this.props
+    session.signout()
   }
 
   public render () {
@@ -146,8 +152,10 @@ class TopNavigator extends React.Component<TopNavigatorProps & WithStyles<ClassN
                 open={Boolean(anchorEl)}
                 onClose={this.handleClose}
               >
-                <MenuItem>Profile</MenuItem>
-                <MenuItem>Sign Out</MenuItem>
+                <MenuItemLink href={`/users/show?uniqueName=${currentUser.uniqueName}`} as={`/users/${currentUser.uniqueName}`}>
+                  Profile
+                </MenuItemLink>
+                <MenuItem onClick={this.handleClickSignOutButton}>Sign Out</MenuItem>
               </Menu>
             </div>
           }
