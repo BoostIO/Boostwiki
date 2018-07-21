@@ -23,6 +23,7 @@
     "axios": "^0.18.0",
     "body-parser": "^1.18.3",
     "classnames": "^2.2.6",
+    "codemirror": "^5.39.2",
     "connect-redis": "^3.3.3",
     "dotenv": "^5.0.1",
     "express": "^4.16.3",

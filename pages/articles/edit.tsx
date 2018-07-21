@@ -16,8 +16,10 @@ import {
   createStyles,
   Theme
 } from '@material-ui/core/styles'
-import CodeEditor from '../../components/CodeEditor'
 import { Article } from '../../lib/models'
+import dynamic from 'next/dynamic'
+
+const CodeEditor = dynamic(import('../../components/CodeEditor').then(module => module.default))
 
 interface ArticleEditProps {
   route: RouteState
@@ -66,7 +68,7 @@ class ArticleEdit extends React.Component<ArticleEditProps & WithStyles<ClassNam
   setContent = (content) => this.setState({ content })
   setError = (errorMessage) => this.setState({ errorMessage })
 
-  handleChangeEditor = (e: React.ChangeEvent<HTMLTextAreaElement>) => this.setContent(e.currentTarget.value)
+  handleChangeEditor = (e: React.ChangeEvent<HTMLTextAreaElement>) => this.setContent(e.target.value)
 
   handleSnackbarClose = () => this.setError('')
 
@@ -113,7 +115,7 @@ class ArticleEdit extends React.Component<ArticleEditProps & WithStyles<ClassNam
           className={classes.title}>
           {keyword}
         </Typography>
-        <textarea
+        <CodeEditor
           value={content}
           onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
             this.handleChangeEditor(e)

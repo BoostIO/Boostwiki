@@ -26,6 +26,7 @@ export default class CodeEditor extends React.Component<CodeEditorProps> {
     this.cm = window.CodeMirror.fromTextArea(this.textarea, options)
 
     this.disableHandleChange = false
+    this.cm.getDoc().setValue(this.props.value)
     this.cm.on('change', this.handleChange)
   }
 
@@ -39,7 +40,9 @@ export default class CodeEditor extends React.Component<CodeEditorProps> {
     const currentValue = this.props.value
     const isValueChanged = currentValue !== doc.getValue()
 
-    if (isValueChanged) {
+    console.log(currentValue)
+
+    if (isValueChanged && !this.disableHandleChange) {
       doc.setValue(currentValue)
     }
   }
