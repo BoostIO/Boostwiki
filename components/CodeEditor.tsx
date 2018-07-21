@@ -1,6 +1,12 @@
 import React from 'react'
 import CodeMirror from 'codemirror'
 
+declare global {
+  interface Window {
+    CodeMirror: typeof CodeMirror
+  }
+}
+
 const options = {
   lineNumbers: true,
   mode: 'gfm',
