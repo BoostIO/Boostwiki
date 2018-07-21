@@ -46,8 +46,6 @@ export default class CodeEditor extends React.Component<CodeEditorProps> {
     const currentValue = this.props.value
     const isValueChanged = currentValue !== doc.getValue()
 
-    console.log(currentValue)
-
     if (isValueChanged && !this.disableHandleChange) {
       doc.setValue(currentValue)
     }
