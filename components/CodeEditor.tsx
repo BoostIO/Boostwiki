@@ -11,7 +11,10 @@ const options = {
   lineNumbers: true,
   mode: 'gfm',
   theme: 'github-light',
-  lineWrapping: true
+  lineWrapping: true,
+  extraKeys: {
+    'Enter': 'newlineAndIndentContinueMarkdownList'
+  }
 }
 
 interface CodeEditorProps {

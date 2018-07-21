@@ -68,7 +68,10 @@ export default class MyDocumnet extends Document {
         }}>
           <Main />
           <script src='https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.39.2/codemirror.min.js' />
-          <script src='https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.39.2/mode/markdown/markdown.min.js' />
+          <script src='https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.39.2/mode/meta.min.js' />
+          <script src='https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.39.2/addon/mode/overlay.min.js' />
+          <script src='https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.39.2/addon/edit/continuelist.min.js' />
+          <script src='https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.39.2/mode/gfm/gfm.min.js' />
           <NextScript />
         </body>
       </html>
