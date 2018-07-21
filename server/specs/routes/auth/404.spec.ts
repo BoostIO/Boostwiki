@@ -1,6 +1,6 @@
 import chai from 'chai'
 import express from 'express'
-import app from '../../../app'
+import app from '../../../appRouter'
 
 describe('404', () => {
   it('return 404 and error message.', async () => {
