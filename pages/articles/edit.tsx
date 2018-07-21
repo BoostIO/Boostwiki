@@ -1,9 +1,6 @@
 import React from 'react'
 import { inject, observer } from 'mobx-react'
-import {
-  withPageBundle,
-  BundleContainerProps
-} from '../../lib/withPageBundle'
+import { withPageBundle } from '../../lib/withPageBundle'
 import { Button, Typography } from '@material-ui/core'
 import {
   createArticle,
@@ -19,9 +16,16 @@ import {
   createStyles,
   Theme
 } from '@material-ui/core/styles'
+import { Article } from '../../lib/models'
+import dynamic from 'next/dynamic'
+
+const CodeEditor = dynamic(import('../../components/CodeEditor').then(module => module.default))
 
 interface ArticleEditProps {
   route: RouteState
+  pageProps: {
+    article?: Article
+  }
 }
 
 interface ArticleEditState {
@@ -48,7 +52,7 @@ type ClassNames = typeof styles
 
 @inject('route')
 @observer
-class ArticleEdit extends React.Component<ArticleEditProps & BundleContainerProps & WithStyles<ClassNames>, ArticleEditState> {
+class ArticleEdit extends React.Component<ArticleEditProps & WithStyles<ClassNames>, ArticleEditState> {
   constructor (props) {
     super(props)
     const { article } = props.pageProps
@@ -64,7 +68,7 @@ class ArticleEdit extends React.Component<ArticleEditProps & BundleContainerProp
   setContent = (content) => this.setState({ content })
   setError = (errorMessage) => this.setState({ errorMessage })
 
-  handleChangeEditor = (e: React.ChangeEvent<HTMLTextAreaElement>) => this.setContent(e.currentTarget.value)
+  handleChangeEditor = e => this.setContent(e.target.value)
 
   handleSnackbarClose = () => this.setError('')
 
@@ -111,9 +115,9 @@ class ArticleEdit extends React.Component<ArticleEditProps & BundleContainerProp
           className={classes.title}>
           {keyword}
         </Typography>
-        <textarea
+        <CodeEditor
           value={content}
-          onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
+          onChange={e => {
             this.handleChangeEditor(e)
           }} />
         <Button
