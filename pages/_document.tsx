@@ -54,11 +54,21 @@ export default class MyDocumnet extends Document {
             rel='stylesheet'
             href='//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css'
           />
+          <link
+            rel='stylesheet'
+            href='https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.39.2/codemirror.min.css'
+          />
+          <link
+            href='https://unpkg.com/codemirror-github-light@0.4.2/lib/codemirror-github-light-theme.css'
+            rel='stylesheet'
+          />
         </Head>
         <body style={{
           backgroundColor: '#fff'
         }}>
           <Main />
+          <script src='https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.39.2/codemirror.min.js' />
+          <script src='https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.39.2/mode/markdown/markdown.min.js' />
           <NextScript />
         </body>
       </html>
