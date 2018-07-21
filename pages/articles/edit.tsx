@@ -1,9 +1,6 @@
 import React from 'react'
 import { inject, observer } from 'mobx-react'
-import {
-  withPageBundle,
-  BundleContainerProps
-} from '../../lib/withPageBundle'
+import { withPageBundle } from '../../lib/withPageBundle'
 import { Button, Typography } from '@material-ui/core'
 import {
   createArticle,
@@ -19,9 +16,14 @@ import {
   createStyles,
   Theme
 } from '@material-ui/core/styles'
+import CodeEditor from '../../components/CodeEditor'
+import { Article } from '../../lib/models'
 
 interface ArticleEditProps {
   route: RouteState
+  pageProps: {
+    article?: Article
+  }
 }
 
 interface ArticleEditState {
@@ -48,7 +50,7 @@ type ClassNames = typeof styles
 
 @inject('route')
 @observer
-class ArticleEdit extends React.Component<ArticleEditProps & BundleContainerProps & WithStyles<ClassNames>, ArticleEditState> {
+class ArticleEdit extends React.Component<ArticleEditProps & WithStyles<ClassNames>, ArticleEditState> {
   constructor (props) {
     super(props)
     const { article } = props.pageProps
