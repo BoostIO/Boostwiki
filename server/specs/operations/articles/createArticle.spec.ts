@@ -11,24 +11,28 @@ describe('createArticle', () => {
   })
 
   it('return new article', async () => {
+    // When
     const article = await createArticle({
       keyword: 'test_keyword',
       content: 'test content',
       user: user._id
     })
 
+    // Then
     expect(article.keyword).toBe('test_keyword')
     expect((article.headCommit as Commit).content).toBe('test content')
     expect((article.headCommit as Commit).user._id).toEqual(user._id)
   })
 
   it('save new article', async () => {
+    // When
     const article = await createArticle({
       keyword: 'test_keyword',
       content: 'test content',
       user: user._id
     })
 
+    // Then
     const searchedArticle = await Article.findById(article._id).populate('headCommit')
 
     expect(searchedArticle._id).toEqual(article._id)
