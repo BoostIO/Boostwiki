@@ -68,7 +68,7 @@ class ArticleEdit extends React.Component<ArticleEditProps & WithStyles<ClassNam
   setContent = (content) => this.setState({ content })
   setError = (errorMessage) => this.setState({ errorMessage })
 
-  handleChangeEditor = (e: React.ChangeEvent<HTMLTextAreaElement>) => this.setContent(e.target.value)
+  handleChangeEditor = e => this.setContent(e.target.value)
 
   handleSnackbarClose = () => this.setError('')
 
@@ -117,7 +117,7 @@ class ArticleEdit extends React.Component<ArticleEditProps & WithStyles<ClassNam
         </Typography>
         <CodeEditor
           value={content}
-          onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
+          onChange={e => {
             this.handleChangeEditor(e)
           }} />
         <Button
