@@ -46,6 +46,14 @@ export default class MyDocumnet extends Document {
             rel='stylesheet'
             href='https://fonts.googleapis.com/css?family=Roboto:300,400,500'
           />
+          <link
+            href='https://fonts.googleapis.com/css?family=Roboto+Mono'
+            rel='stylesheet'
+          />
+          <link
+            rel='stylesheet'
+            href='//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css'
+          />
         </Head>
         <body style={{
           backgroundColor: '#fff'
