@@ -48,7 +48,7 @@ router.get('/github/callback',
   function redirectAndCleanUpSession (req, res, next) {
     const redirectTo = typeof req.session.redirectTo === 'string'
     ? req.session.redirectTo
-    : configuration.webURL
+    : configuration.baseURL
     req.session.redirectTo = null
     req.session.save(() => {
       res.redirect(redirectTo)
@@ -61,7 +61,7 @@ router.use('/github/callback', ((error, req, res, next) => {
   const query = querystring.stringify({
     authError: 'Something went wrong. Please retry login.'
   })
-  res.redirect(`${configuration.webURL}/?${query}`)
+  res.redirect(`${configuration.baseURL}/?${query}`)
 }) as ErrorRequestHandler)
 
 router.use(function (req, res, next) {
